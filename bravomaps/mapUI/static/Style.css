@@ -1,0 +1,23 @@
+
+
+.border{
+  border: solid 1px black;
+}
+
+#canvas{
+  border: solid 1px blue;
+  width: 100%;
+  height: auto;
+}
+
+#canvasHolder{
+  max-height: 1500;
+  flex:1;
+  overflow: hidden;
+  height: 100%;
+  padding: 1em;
+  background-color:#ffffff
+  border: 10em;
+  border-color: blue;
+
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Home</title>
+    {% load static %}
+    <link href="{%static 'polls/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{%static 'polls/js/jquery-1.12.2.min.js' %}"></script>
+    <script src="{%static 'polls/js/bootstrap.min.js' %}"></script>
+
+    <link href="{%static 'polls/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'polls/css/Home.css' %}"/>
+
+    <!-- Bootstrap Js CDN -->
+
+
+    <!-- Bootstrap -->
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+});
+</script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <script>
+    $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+      });
+    });
+    </script>
+    <button onclick="SwapMap();"> Click ME </button>
+
+    <div class="wrapper">
+
+      <!--Sidebar-->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>Find the shortest route between two places on campus</h3>
+        </div>
+        <div class="sidebar-search">
+          <form role="search">
+            <div class="form-group">
+              <p>From:</p>
+              <input type="text" class="form-control" placeholder="Starting Point">
+              <p>To:</p>
+              <input type="text" class="form-control" placeholder="End Point">
+            </div>
+            <button type="submit" class="btn btn-default" onclick="SwapMap();">Find Route</button>
+          </form>
+        </div>
+        <ul class="list-unstyled components">
+          <li>
+            <a href="#Submenu" data-toggle="collapse" aria-expanded="false">Forresterhill Campus Buildings</a>
+            <ul class="collapse list-unstyled" id="Submenu">
+              <li><div class="building" id="1"><a href="#">Suttie Centre</a></div></li>
+              <li><div class="building" id="2"><a href="#">Institute of Medical Science</a></div></li>
+              <li><div class="building" id="3"><a href="#">Health Sciences Building</a></div></li>
+            </ul>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+
+                  <div class="navbar-header">
+                      <button type="button" id="sidebarCollapse" class="navbar-btn">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </button>
+                  </div>
+
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav navbar-right">
+                          <li>
+                            <form class="navbar-form navbar-right" role="search">
+                              <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search Map">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                              </div>
+                            </form>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+        <h2> Map here: </h2>
+        <div class="row">
+
+            <div id="canvasHolder">
+                <canvas id="canvas">
+
+                </canvas>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+  </body>
+    <script src="{%static 'polls/js/MapTop.js' %}"></script>>
+    <script src="{%static 'polls/js/MapSwap.js' %}"></script>>
+   <script src="{%static 'polls/js/Map1.js' %}" id="MapJSFile" ></script>>
+    <script src="{%static 'polls/js/MapMovement.js' %}"></script>
+    <script src="{%static 'polls/js/MapSwap.js' %}"></script>
