@@ -67,9 +67,9 @@
           <li>
             <a href="#Submenu" data-toggle="collapse" aria-expanded="false">Forresterhill Campus Buildings</a>
             <ul class="collapse list-unstyled" id="Submenu">
-              <li><div class="building" id="1"><a href="#">Suttie Centre</a></div></li>
-              <li><div class="building" id="2"><a href="#">Institute of Medical Science</a></div></li>
-              <li><div class="building" id="3"><a href="#">Health Sciences Building</a></div></li>
+              <li><div class="building" onclick="SwapMap('Suttie_Centre') " id="1"><a>Suttie Centre</a></div></li>
+              <li><div class="building" onclick="SwapMap('Institute_of_Medical_Science') " id="2"><a href="#">Institute of Medical Science</a></div></li>
+              <li><div class="building"  onclick="SwapMap('Health_Sciences_Building') " id="3"><a href="#">Health Sciences Building</a></div></li>
             </ul>
         </ul>
       </nav>
@@ -102,7 +102,7 @@
                   </div>
               </div>
           </nav>
-        <h2> Map here: </h2>
+        <h2 id="MapNameHead"> Map here: </h2>
         <div class="row">
 
             <div id="canvasHolder">
@@ -119,6 +119,6 @@
   </body>
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
     <script src="{%static 'polls/js/MapSwap.js' %}"></script>>
-   <script src="{%static 'polls/js/Map1.js' %}" id="MapJSFile" ></script>>
+   <script src="{%static 'polls/js/Institute_of_Medical_Science.js' %}" id="MapJSFile" ></script>>
     <script src="{%static 'polls/js/MapMovement.js' %}"></script>
     <script src="{%static 'polls/js/MapSwap.js' %}"></script>

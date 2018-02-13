@@ -79,11 +79,14 @@ function trackTransforms(ctx){
     xform = xform.rotate(radians*180/Math.PI);
     return rotate.call(ctx,radians);
   };
+
   var translate = ctx.translate;
   ctx.translate = function(dx,dy){
     xform = xform.translate(dx,dy);
     return translate.call(ctx,dx,dy);
   };
+
+
   var transform = ctx.transform
   ctx.transform = function(a,b,c,d,e,f){
     var m2 = svg.createSVGMatrix();
