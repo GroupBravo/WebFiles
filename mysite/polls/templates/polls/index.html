@@ -10,7 +10,7 @@
     <link href="{%static 'polls/css/bootstrap.min.css' %}" rel="stylesheet">
     <script src="{%static 'polls/js/jquery-1.12.2.min.js' %}"></script>
     <script src="{%static 'polls/js/bootstrap.min.js' %}"></script>
-
+    <script src="{%static 'polls/js/ShowTest.js' %}"></script>
     <link href="{%static 'polls/css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{%static 'polls/css/Home.css' %}"/>
 
@@ -43,7 +43,19 @@
       });
     });
     </script>
-    <button onclick="SwapMap();"> Click ME </button>
+    <button onclick="ShowTest()"> CLICK ME </button>
+    <p id="TestPlace"> </p>
+    <h1>{{ Num1 }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="/polls/GoTo/" method="post">
+    {% csrf_token %}
+
+        <input type="number" name="num1" id="Num1"/>
+
+    <input type="submit" value="Vote" />
+    </form>
 
     <div class="wrapper">
 
