@@ -18,5 +18,10 @@ redraw=function(){
     ctx.lineTo(1000,0);
     ctx.stroke();
 
+    ctx.beginPath();
+    ctx.lineWidth = 6;
+    ctx.moveTo(0,0);
+    ctx.lineTo(1000,1000);
+    ctx.stroke();
   }
 redraw();
