@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function MoveToSub(){
   Search=document.getElementById("SearchInput").value
 
@@ -16,12 +17,15 @@ function MoveToSub(){
 }
 
 
+=======
+>>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
 function MoveTo(Xcoord,Ycoord){
   var p1 = ctx.transformedPoint(0,0);
   var p2 = ctx.transformedPoint(canvas.width,canvas.height);
   ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
   trackTransforms(ctx);
   ctx.resetTransform();
+<<<<<<< HEAD
     //ctx.translate(-Xcoord,-Ycoord);
   console.log("Moving to point",Xcoord,Ycoord)
   var pt = ctx.transformedPoint(Xcoord,Ycoord);
@@ -29,4 +33,11 @@ function MoveTo(Xcoord,Ycoord){
   ctx.scale(3,3);
   ctx.translate(-pt.x,-pt.y);
   //UpdateCanvas();
+=======
+
+  ctx.translate(-Xcoord+100,-Ycoord+100);
+  redraw();
+  ctx.scale(1.7,1.7);
+  redraw();
+>>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
 }

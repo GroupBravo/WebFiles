@@ -6,7 +6,11 @@ from .models import Question, Choice
 from django.template import loader
 from django.views import generic
 from django.http import JsonResponse
+<<<<<<< HEAD
 import sqlite3
+=======
+
+>>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
@@ -40,6 +44,7 @@ def results(request, question_id):
     question=get_object_or_404(Question,pk=question_id)
     return render(request,'polls/results.html',{'question':question})
 
+<<<<<<< HEAD
 
 def ConvertCoord(Label):
     db=sqlite3.connect("back_end_data")
@@ -62,11 +67,21 @@ def GoTo(request):
     coord=coord.split(",")
     return JsonResponse([table,coord],safe=False)
 
+=======
+def GoTo(request):
+    if request.method=="POST":
+        Num= (request.POST['num1'])
+        return render(request,'polls/index.html',{'Num1':Num})
+
+    else:
+         return render(request,'polls/index.html')
+>>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
 
 def Test(request):
 
     return JsonResponse([100, 500], safe=False)
 
+<<<<<<< HEAD
 
 def DisplayTest(request):
 
@@ -151,3 +166,5 @@ def validRooms(request):
         output.append(each[0])
 
     return JsonResponse(output,safe=False)
+=======
+>>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
