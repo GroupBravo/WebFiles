@@ -7,10 +7,10 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Home</title>
     {% load static %}
-    <link href="{%static 'polls/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{%static 'polls/css/bootstrap.css' %}" rel="stylesheet">
     <script src="{%static 'polls/js/jquery-1.12.2.min.js' %}"></script>
     <script src="{%static 'polls/js/bootstrap.min.js' %}"></script>
-
+    <script src="{%static 'polls/js/ShowTest.js' %}"></script>
     <link href="{%static 'polls/css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{%static 'polls/css/Home.css' %}"/>
 
@@ -38,12 +38,69 @@
     <script>
     $(document).ready(function () {
     $('#sidebarCollapse').on('click', function () {
+
         $('#sidebar').toggleClass('active');
         $(this).toggleClass('active');
       });
     });
     </script>
-    <button onclick="SwapMap();"> Click ME </button>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+    function drawLabels(){
+      for (i=0;i<$.CurrentLabels.length; i++){
+
+        Label=$.CurrentLabels[i][0]
+        Coord=$.CurrentLabels[i][1]
+        ctx.strokeStyle="#000000"
+        ctx.font = "20px Arial";
+        ctx.fillText(Label,Coord[0],Coord[1]);
+        console.log("Adding")
+      }
+    }
+    $.CurrentLabels=[];
+    function GetLabels(){
+          $.get("/polls/getLabels/",{"Map":$.CurrentMap}, function(Info){
+            $.CurrentLabels=Info
+            drawLabels();
+          });
+
+    }
+
+    function GetRooms(){
+
+      $.get("/polls/validNames",function(Info){
+        $.locations=Info
+        console.log($.locations);
+
+        autocomplete(document.getElementById("StartPoint"), $.locations);
+        autocomplete(document.getElementById("EndPoint"), $.locations);
+        autocomplete(document.getElementById("SearchInput"), $.locations);
+      });
+
+    }
+    GetRooms();
+    </script>
+
+
+
+    <button onclick="GetLabels()"> Get Names/Coords </button>
+    <button onclick="GetRooms()">Get Valid Names </button>
+    <p id="TestPlace"> </p>
+    <h1>{{ Num1 }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="/polls/GoTo/" method="post">
+    {% csrf_token %}
+
+        <input type="number" name="num1" id="Num1"/>
+
+    <input type="submit" value="Vote" />
+    </form>
 
     <div class="wrapper">
 
@@ -52,25 +109,41 @@
         <div class="sidebar-header">
           <h3>Find the shortest route between two places on campus</h3>
         </div>
+
+        <div class = "alert alert-danger alert-dismissable" id="emptystart" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "From:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="emptyfinish" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "To:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="samevalues" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The values in the "From:" and "To:" fields must be different</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongstartvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong start point. Pick a correct value from the list.</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongendvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong end point. Pick a correct value from the list.</div>
+
         <div class="sidebar-search">
-          <form role="search">
-            <div class="form-group">
+          <form name="route" autocomplete="off" onsubmit="event.preventDefault(); return validation()" role="search">
+            <div class="autocomplete">
               <p>From:</p>
-              <input type="text" class="form-control" placeholder="Starting Point">
-              <p>To:</p>
-              <input type="text" class="form-control" placeholder="End Point">
+              <input type="text"  id="StartPoint" placeholder="Starting Point">
             </div>
-            <button type="submit" class="btn btn-default" onclick="SwapMap();">Find Route</button>
+            <div class="autocomplete">
+              <p>To:</p>
+              <input type="text"  id="EndPoint" placeholder="End Point">
+            </div>
+            <button id="find" type="submit" class="btn btn-primary" onclick="DisplayRoute();">Find Route</button>
           </form>
         </div>
         <ul class="list-unstyled components">
           <li>
-            <a href="#Submenu" data-toggle="collapse" aria-expanded="false">Forresterhill Campus Buildings</a>
+            <a href="#Submenu" data-toggle="collapse" aria-expanded="false"> The Flying Circus </a>
             <ul class="collapse list-unstyled" id="Submenu">
-              <li><div class="building" onclick="SwapMap('Suttie_Centre') " id="1"><a>Suttie Centre</a></div></li>
-              <li><div class="building" onclick="SwapMap('Institute_of_Medical_Science') " id="2"><a href="#">Institute of Medical Science</a></div></li>
-              <li><div class="building"  onclick="SwapMap('Health_Sciences_Building') " id="3"><a href="#">Health Sciences Building</a></div></li>
+              <li><div class="building" onclick="SwapMap('Outside_0') " id="1"><a>OutSide</a></div></li>
+              <li><div class="building" onclick="SwapMap('Ministry_of_Silly_Walks_0') " id="2"> <a>Ministry of Silly Walks</a></div></li>
+              <li><div class="building"  onclick="SwapMap('Parrot_Shop_0') " id="3"><a>Parrot Shop</a></div></li>
+
+                  <a href="#Camalot" data-toggle="collapse" aria-expanded="false"> Camalot </a>
+                    <ul class="collapse list-unstyled" id="Camalot">
+                      <li><div class="building" onclick="SwapMap('Camelot_0') " id="2"> <a>Camelot Ground Floor</a></div></li>
+                      <li><div class="building"  onclick="SwapMap('Camelot_1') " id="3"><a>Camelot Floor 1</a></div></li>
+                    </ul>
             </ul>
+          </li>
         </ul>
       </nav>
 
@@ -89,13 +162,13 @@
                   </div>
 
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <ul class="nav navbar-nav navbar-right">
+                      <ul class="nav navbar-nav navbar-left">
                           <li>
-                            <form class="navbar-form navbar-right" role="search">
-                              <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search Map">
-                                <button type="submit" class="btn btn-primary">Search</button>
+                            <form autocomplete="off" onsubmit="event.preventDefault()" role="search" class="navbar-form navbar-right" >
+                              <div class="autocomplete">
+                                <input type="text" id="SearchInput" class="" placeholder="Search Map">
                               </div>
+                                <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Find Search Map</button>
                             </form>
                           </li>
                       </ul>
@@ -119,6 +192,11 @@
   </body>
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
     <script src="{%static 'polls/js/MapSwap.js' %}"></script>>
-   <script src="{%static 'polls/js/Institute_of_Medical_Science.js' %}" id="MapJSFile" ></script>>
+    <script src="{%static 'polls/js/autocomplete.js' %}"></script>>
+      <script src="{%static 'polls/js/MoveTo.js' %}"></script>
+  <script src="{%static 'polls/js/MapSwap.js' %}"></script>
+   <script src="{%static 'polls/js/Ministry_of_Silly_Walks_0.js' %}" id="MapJSFile" ></script>>
     <script src="{%static 'polls/js/MapMovement.js' %}"></script>
-    <script src="{%static 'polls/js/MapSwap.js' %}"></script>
+
+
+    <script src="{%static 'polls/js/DisplayRoute.js' %}"></script>
