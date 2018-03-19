@@ -15,12 +15,12 @@ window.onload = function(){
   trackTransforms(ctx);
 
 
-function UpdateCanvas(){
-  redraw();
-  drawRoute();
-  drawLabels();
+  function UpdateCanvas(){
+    redraw();
+    drawRoute();
+    drawLabels();
 
-}
+  }
 //Draw default map and
 UpdateCanvas();
 GetLabels();

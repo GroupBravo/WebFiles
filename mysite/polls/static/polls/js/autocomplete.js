@@ -144,3 +144,37 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 }
+
+function drawLabels(){
+  for (i=0;i<$.CurrentLabels.length; i++){
+
+    Label=$.CurrentLabels[i][0]
+    Coord=$.CurrentLabels[i][1]
+    ctx.strokeStyle="#000000"
+    ctx.font = "20px Arial";
+    ctx.fillText(Label,Coord[0],Coord[1]);
+    console.log("Adding")
+  }
+}
+$.CurrentLabels=[];
+function GetLabels(){
+      $.get("/polls/getLabels/",{"Map":$.CurrentMap}, function(Info){
+        $.CurrentLabels=Info
+        drawLabels();
+      });
+
+}
+
+function GetRooms(){
+
+  $.get("/polls/validNames",function(Info){
+    $.locations=Info
+    console.log($.locations);
+
+    autocomplete(document.getElementById("StartPoint"), $.locations);
+    autocomplete(document.getElementById("EndPoint"), $.locations);
+    autocomplete(document.getElementById("SearchInput"), $.locations);
+  });
+
+}
+GetRooms();

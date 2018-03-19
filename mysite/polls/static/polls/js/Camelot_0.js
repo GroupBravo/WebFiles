@@ -15,7 +15,7 @@ redraw=function(){
    ctx.rect(0, 730, 260, 135);
    ctx.fillStyle = "green";
    ctx.fill();
-
+   ctx.fillStyle="black"
     ctx.strokeStyle="#000000"
 
      ctx.beginPath();

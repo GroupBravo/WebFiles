@@ -44,55 +44,19 @@
       });
     });
     </script>
-<<<<<<< HEAD
 
     <script>
     $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
     });
-    function drawLabels(){
-      for (i=0;i<$.CurrentLabels.length; i++){
 
-        Label=$.CurrentLabels[i][0]
-        Coord=$.CurrentLabels[i][1]
-        ctx.strokeStyle="#000000"
-        ctx.font = "20px Arial";
-        ctx.fillText(Label,Coord[0],Coord[1]);
-        console.log("Adding")
-      }
-    }
-    $.CurrentLabels=[];
-    function GetLabels(){
-          $.get("/polls/getLabels/",{"Map":$.CurrentMap}, function(Info){
-            $.CurrentLabels=Info
-            drawLabels();
-          });
-
-    }
-
-    function GetRooms(){
-
-      $.get("/polls/validNames",function(Info){
-        $.locations=Info
-        console.log($.locations);
-
-        autocomplete(document.getElementById("StartPoint"), $.locations);
-        autocomplete(document.getElementById("EndPoint"), $.locations);
-        autocomplete(document.getElementById("SearchInput"), $.locations);
-      });
-
-    }
-    GetRooms();
     </script>
 
 
 
     <button onclick="GetLabels()"> Get Names/Coords </button>
     <button onclick="GetRooms()">Get Valid Names </button>
-=======
-    <button onclick="MoveToSub()"> CLICK ME </button>
->>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
     <p id="TestPlace"> </p>
     <h1>{{ Num1 }}</h1>
 
@@ -197,15 +161,9 @@
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
     <script src="{%static 'polls/js/MapSwap.js' %}"></script>>
     <script src="{%static 'polls/js/autocomplete.js' %}"></script>>
-      <script src="{%static 'polls/js/MoveTo.js' %}"></script>
+
   <script src="{%static 'polls/js/MapSwap.js' %}"></script>
    <script src="{%static 'polls/js/Ministry_of_Silly_Walks_0.js' %}" id="MapJSFile" ></script>>
+  <script src="{%static 'polls/js/DisplayRoute.js' %}"></script>
     <script src="{%static 'polls/js/MapMovement.js' %}"></script>
-<<<<<<< HEAD
-
-
-    <script src="{%static 'polls/js/DisplayRoute.js' %}"></script>
-=======
-    <script src="{%static 'polls/js/MapSwap.js' %}"></script>
-    <script src="{%static 'polls/js/MoveTo.js' %}"></script>
->>>>>>> 5dc5db09ecd4551414e682ff79553b704a185433
+      <script src="{%static 'polls/js/MoveTo.js' %}"></script>

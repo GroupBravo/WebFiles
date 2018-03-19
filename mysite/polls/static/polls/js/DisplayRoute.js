@@ -14,16 +14,16 @@ function DisplayRoute(){
       console.log(Info[i])
 
     }
-
+    $.currentNode=0
     $.CurrentMapList=MapList[0];
-    $.Routes=Info.slice(1);
 
+    $.Routes=Info.slice(1);
     CreateRoute();
+    SwapMap($.CurrentMapList[$.CurrentMapList.length-1]);
 
   });
 
 }
-
 //Generates route on the canvas
 function drawRoute(){
   for (i=0; i<$.CurrentDisplayRoute.length-1;i++){
@@ -63,3 +63,11 @@ function CreateRoute() {
       drawRoute();
     }
   }
+
+function nextNode(){
+  $.currentNode++;
+  if ($.CurrentDisplayRoute.length<$.currentNode){
+    Coords=$.CurrentDisplayRoute[$.currentNode]
+    
+  }
+}
