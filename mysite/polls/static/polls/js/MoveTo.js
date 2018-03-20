@@ -22,12 +22,12 @@ function MoveTo(Xcoord,Ycoord){
   ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
   trackTransforms(ctx);
   ctx.resetTransform();
-    //ctx.translate(-Xcoord,-Ycoord);
+  ctx.scale(2,2)
+  ctx.translate(-Xcoord+60,-Ycoord+60);
   console.log("Moving to point",Xcoord,Ycoord)
-  var pt = ctx.transformedPoint(Xcoord,Ycoord);
-  ctx.translate(pt.x,pt.y);
-  ctx.scale(1.8,1.8);
-  ctx.translate(-pt.x,-pt.y);
+  //var pt = ctx.transformedPoint(0,0);
+  //ctx.translate(pt.x,pt.y);
+
   redraw();
   drawRoute();
   drawLabels();

@@ -150,10 +150,17 @@ function drawLabels(){
 
     Label=$.CurrentLabels[i][0]
     Coord=$.CurrentLabels[i][1]
-    ctx.strokeStyle="#000000"
-    ctx.font = "20px Arial";
+    ctx.globalAlpha=0.2;
+    ctx.fillStyle="blue";
+    
+    Rect1=parseFloat(Coord[0])
+    Rect2=parseFloat(Coord[1])-40
+    ctx.fillRect(Rect1,Rect2,Label.length*50*537.37/1000,45);
+    ctx.globalAlpha=1
+    ctx.fillStyle="#550055"
+    ctx.font = "15px Arial";
     ctx.fillText(Label,Coord[0],Coord[1]);
-    console.log("Adding")
+
   }
 }
 $.CurrentLabels=[];

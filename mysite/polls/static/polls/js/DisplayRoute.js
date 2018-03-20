@@ -63,11 +63,85 @@ function CreateRoute() {
       drawRoute();
     }
   }
+function prevNode(){
+
+    $.currentNode--;
+    if ($.currentNode>=0){
+      console.log($.CurrentDisplayRoute)
+      console.log($.currentNode)
+      Coords=$.CurrentDisplayRoute[$.currentNode]
+      MoveTo(Coords[0],Coords[1])
+
+    }
+    else {
+      $.currentNode++;
+      if ($.CurrentDisplayRoute.length>0){
+        currentMapIndex=$.CurrentMapList.indexOf($.CurrentMap)
+        if (currentMapIndex<$.CurrentMapList.length-1){
+
+          SwapMap($.CurrentMapList[currentMapIndex+1]);
+          $.currentNode=$.CurrentDisplayRoute.length-1
+          Coords=$.CurrentDisplayRoute[$.currentNode]
+          MoveTo(Coords[0],Coords[1])
+        }
+      }
+  }
+}
 
 function nextNode(){
+
   $.currentNode++;
-  if ($.CurrentDisplayRoute.length<$.currentNode){
+  if ($.CurrentDisplayRoute.length>$.currentNode){
     Coords=$.CurrentDisplayRoute[$.currentNode]
-    
+    MoveTo(Coords[0],Coords[1])
+    getInstruction();
+
   }
+  else {
+    $.currentNode--;
+    if ($.CurrentDisplayRoute.length>0){
+      currentMapIndex=$.CurrentMapList.indexOf($.CurrentMap)
+      if (currentMapIndex>0){
+        $.currentNode=0
+        SwapMap($.CurrentMapList[currentMapIndex-1])
+        getInstruction();
+      }
+    }
+  }
+}
+
+
+function getInstruction(){
+  console.log($.currentNode,"CURRENT NODE")
+  if (0==$.currentNode){
+    var displayText=$.CurrentMap.split("_").join(" ");
+    console.log("Enter Map "+displayText);
+  }
+  else {if($.currentNode==$.CurrentDisplayRoute.length-1){
+    var displayText=$.CurrentMap.split("_").join(" ");
+    console.log("Exit Map "+displayText)
+  }else{
+    ToCoord=$.CurrentDisplayRoute[$.currentNode+1];
+    FromCoord=$.CurrentDisplayRoute[$.currentNode-1];
+    CurrentCoord=$.CurrentDisplayRoute[$.currentNode];
+
+    ToPoint=new Victor(ToCoord[0],ToCoord[1])
+    FromPoint=new Victor(FromCoord[0],FromCoord[1])
+    CurrentCoord=new Victor(CurrentCoord[0],CurrentCoord[1])
+
+    ToPoint.subtract(CurrentCoord);
+    FromPoint.subtract(CurrentCoord);
+    FromPoint.norm()
+    ToPoint.norm()
+    Angle=Math.acos(ToPoint.dot(FromPoint))
+    Angle*=180/Math.PI
+    if (true ||Angle>40 && Angle<140){
+      ToPoint.rotate(-FromPoint.angle())
+
+      console.log(ToPoint.angle())
+    }
+    console.log("Instruction");
+  }}
+
+
 }
