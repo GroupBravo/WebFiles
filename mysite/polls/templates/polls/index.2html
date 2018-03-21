@@ -51,7 +51,7 @@
     </script>
 
 
-<!--
+
     <button onclick="nextNode()"> Next Node </button>
     <button onclick="prevNode()">previous </button>
     <p id="TestPlace"> </p>
@@ -66,7 +66,6 @@
 
     <input type="submit" value="Vote" />
     </form>
-  -->
 
     <div class="wrapper">
 
@@ -141,12 +140,7 @@
                   </div>
               </div>
           </nav>
-          <div class="directions-container" id="bs-example-navbar-collapse-1">
-              <div class="left"><button type="button" class="btn" onclick="prevNode()">Previous Step</button></div>
-              <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
-              <div class="right"><button type="button" class="btn" onclick="nextNode()">Next Step</button></div>
-          </div>
-        <h2 id="MapNameHead"> Main Building </h2>
+        <h2 id="MapNameHead"> Map here: </h2>
         <div class="row">
 
             <div id="canvasHolder">
@@ -156,6 +150,7 @@
             </div>
 
           </div>
+
         </div>
       </div>
 

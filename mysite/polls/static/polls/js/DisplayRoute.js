@@ -71,7 +71,7 @@ function prevNode(){
       console.log($.currentNode)
       Coords=$.CurrentDisplayRoute[$.currentNode]
       MoveTo(Coords[0],Coords[1])
-
+      getInstruction();
     }
     else {
       $.currentNode++;
@@ -83,6 +83,7 @@ function prevNode(){
           $.currentNode=$.CurrentDisplayRoute.length-1
           Coords=$.CurrentDisplayRoute[$.currentNode]
           MoveTo(Coords[0],Coords[1])
+          getInstruction();
         }
       }
   }
@@ -115,12 +116,13 @@ function getInstruction(){
   console.log($.currentNode,"CURRENT NODE")
   if (0==$.currentNode){
     var displayText=$.CurrentMap.split("_").join(" ");
-    console.log("Enter Map "+displayText);
+    document.getElementById("directionText").innerHTML="Enter Map "+$.CurrentMap.split("_").join(" ")
   }
   else {if($.currentNode==$.CurrentDisplayRoute.length-1){
     var displayText=$.CurrentMap.split("_").join(" ");
-    console.log("Exit Map "+displayText)
+      document.getElementById("directionText").innerHTML="Exit Map "+$.CurrentMap.split("_").join(" ")
   }else{
+    console.log("Active")
     ToCoord=$.CurrentDisplayRoute[$.currentNode+1];
     FromCoord=$.CurrentDisplayRoute[$.currentNode-1];
     CurrentCoord=$.CurrentDisplayRoute[$.currentNode];
@@ -134,13 +136,27 @@ function getInstruction(){
     FromPoint.norm()
     ToPoint.norm()
     Angle=Math.acos(ToPoint.dot(FromPoint))
-    Angle*=180/Math.PI
-    if (true ||Angle>40 && Angle<140){
+    Angle=Math.abs(Angle)*180/Math.PI
+    console.log("ANGLE",Angle)
+    if ( Angle>40 && Angle<140){
       ToPoint.rotate(-FromPoint.angle())
-
-      console.log(ToPoint.angle())
+      Angle=ToPoint.angleDeg()
+      console.log(Angle,"TEST VALUE")
+      if (Angle>0){
+        document.getElementById("directionText").innerHTML="Turn Left"
+        console.log(("left"));
+      }
+      else {
+        console.log("RIGHT")
+        document.getElementById("directionText").innerHTML="Turn Right"
+      }
+      console.log(ToPoint.angleDeg())
     }
-    console.log("Instruction");
+    else {
+      console.log("STRAIGHT")
+      document.getElementById("directionText").innerHTML="Carry on Straight"
+    }
+
   }}
 
 

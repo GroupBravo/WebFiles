@@ -105,7 +105,7 @@ def getPath(request):
     print (startLabel,endLabel)
     results=path_planning_run.load_data(startLabel,endLabel)
 
-    print(results)
+    #print(results)
 
     return JsonResponse(results,safe=False)
 

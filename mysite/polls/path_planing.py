@@ -120,10 +120,22 @@ class a_star():
     def make_path(self,end_node):
         current_node=end_node
         path=[]
+        loacle_coudents=[]
         path.append(self.end_point)
+        for q in self.map_data:
+            if q[0]==self.end_point:
+                loacle_coudents.append(q[1])
         while current_node!=self.start_point:
+            #tape
+            for q in self.map_data:
+                if q[0]==current_node:
+                    loacle_coudents.append(q[1])
+                    break
             path.append(current_node)
             current_node=self.node_data[current_node][2]
+        for q in self.map_data:
+            if q[0]==self.start_point:
+                loacle_coudents.append(q[1])
         path.append(self.start_point)
         if self.debug==True:
             print("")
@@ -133,7 +145,8 @@ class a_star():
                 print(q)
             print("")
 
-        return(path)
+        return((path,loacle_coudents))
+
 
 
     def parent_cheek(self,current_node_data):

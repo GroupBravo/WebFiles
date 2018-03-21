@@ -6,7 +6,7 @@ $.Routes=[]
 
 //Target canvas
 var canvas = document.getElementsByTagName('canvas')[0];
-canvas.height=8000, canvas.width=3000;
+canvas.height=8000, canvas.width=1000;
 
 
 //Create canvas contorler
