@@ -74,7 +74,10 @@ def load_data(start,end):
     maps=[]
     drawing_points=[[]]
     final_path=(t.main())
-
+    if deguging==True:
+        print("t",final_path)
+    if final_path=="cant make a path ":
+        return("cant make a path" )
 
     finalRoutes=[]
     maps_used=[]

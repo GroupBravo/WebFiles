@@ -125,6 +125,7 @@ class a_star():
         for q in self.map_data:
             if q[0]==self.end_point:
                 loacle_coudents.append(q[1])
+                break
         while current_node!=self.start_point:
             #tape
             for q in self.map_data:
@@ -136,6 +137,7 @@ class a_star():
         for q in self.map_data:
             if q[0]==self.start_point:
                 loacle_coudents.append(q[1])
+                break
         path.append(self.start_point)
         if self.debug==True:
             print("")
@@ -265,4 +267,6 @@ class a_star():
                     print(self.node_data[q][0])
                     print("")
                 print("")
+            if len(self.openlist)==0:
+                return("cant make a path ")
             self.current_postion=self.openlist[0]
