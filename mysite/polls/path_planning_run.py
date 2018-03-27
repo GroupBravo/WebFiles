@@ -29,8 +29,10 @@ def load_data(start,end):
         if deguging==True:
             print("laoding",table1)
             print("start and end are in the same building")
+
         tables_to_load.append(table1)
-        tables_to_load.append("Outside")
+        if table1!="Outside":
+            tables_to_load.append("Outside")
     else:
         tables_to_load.append(table1)
 
@@ -39,7 +41,7 @@ def load_data(start,end):
             print("loading",table1)
             print("loading ",table2)
 
-        if (table1 or table2)!="Outside":
+        if (table1 !="Outside")  and (table2!="Outside"):
             tables_to_load.append("Outside")
             if deguging==True:
                 print("loading out_side table")
