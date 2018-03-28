@@ -19,12 +19,7 @@
 
     <!-- Bootstrap -->
 
-    <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-    </script>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,6 +35,12 @@
         $(this).toggleClass('active');
       });
     });
+    $(document).ready(function () {
+    $('#closesidebar').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#sidebarCollapse').toggleClass('active');
+      });
+    });
     </script>
 
     <script>
@@ -49,30 +50,12 @@
     });
 
     </script>
-
-
-<!--
-    <button onclick="nextNode()"> Next Node </button>
-    <button onclick="prevNode()">previous </button>
-    <p id="TestPlace"> </p>
-    <h1>{{ Num1 }}</h1>
-
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-    <form action="/polls/GoTo/" method="post">
-    {% csrf_token %}
-
-        <input type="number" name="num1" id="Num1"/>
-
-    <input type="submit" value="Vote" />
-    </form>
-  -->
-
     <div class="wrapper">
 
       <!--Sidebar-->
       <nav id="sidebar">
         <div class="sidebar-header">
+          <span id='closesidebar' class="glyphicon glyphicon-remove-circle hidden-md hidden-lg"></span>
           <h3>Find the shortest route between two places on campus</h3>
         </div>
 
