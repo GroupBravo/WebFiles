@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>Home</title>
     {% load static %}
     <link href="{%static 'polls/css/bootstrap.css' %}" rel="stylesheet">
     <script src="{%static 'polls/js/jquery-1.12.2.min.js' %}"></script>
     <script src="{%static 'polls/js/bootstrap.min.js' %}"></script>
     <script src="{%static 'polls/js/ShowTest.js' %}"></script>
-    <link href="{%static 'polls/css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{%static 'polls/css/Home.css' %}"/>
 
     <!-- Bootstrap Js CDN -->
@@ -21,10 +21,10 @@
 
     <script>
     $("#menu-toggle").click(function(e) {
-  e.preventDefault();
-  $("#wrapper").toggleClass("toggled");
-});
-</script>
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -76,24 +76,44 @@
           <h3>Find the shortest route between two places on campus</h3>
         </div>
 
-        <div class = "alert alert-danger alert-dismissable" id="emptystart" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "From:" field can't be empty</div>
-        <div class = "alert alert-danger alert-dismissable" id="emptyfinish" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "To:" field can't be empty</div>
-        <div class = "alert alert-danger alert-dismissable" id="samevalues" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The values in the "From:" and "To:" fields must be different</div>
-        <div class = "alert alert-danger alert-dismissable" id="wrongstartvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong start point. Pick a correct value from the list.</div>
-        <div class = "alert alert-danger alert-dismissable" id="wrongendvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong end point. Pick a correct value from the list.</div>
+        <div class = "alert alert-danger alert-dismissable" id="emptystart" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "From:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="emptyfinish" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "To:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="samevalues" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The values in the "From:" and "To:" fields must be different</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongstartvalue" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong start point. Pick a correct value from the list.</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongendvalue" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong end point. Pick a correct value from the list.</div>
+        <div class = "alert alert-danger alert-dismissable" id="emptysmallsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The search location can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongsmallsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
 
         <div class="sidebar-search">
           <form name="route" autocomplete="off" onsubmit="event.preventDefault(); return validation()" role="search">
             <div class="autocomplete">
               <p>From:</p>
-              <input type="text"  id="StartPoint" placeholder="Starting Point">
+              <div class="btn-group">
+                <input type="search" id="StartPoint" placeholder="Enter Starting Point...">
+                <span id="clearstart" class="glyphicon glyphicon-remove-circle searchclear"></span>
+              </div>
             </div>
             <div class="autocomplete">
               <p>To:</p>
-              <input type="text"  id="EndPoint" placeholder="End Point">
+              <div class="btn-group">
+                <input type="text"  id="EndPoint" placeholder="Enter End Point...">
+                <span id="clearend" class="glyphicon glyphicon-remove-circle searchclear"></span>
+              </div>
             </div>
-            <button id="find" type="submit" class="btn btn-primary" onclick="DisplayRoute();">Find Route</button>
+            <button id="findroute" type="submit" class="btn btn-primary" onclick="DisplayRoute();">Find Route</button>
           </form>
+          <div class="hidden-md hidden-lg">
+            <p style="margin-top: 10px;">Search the map <p>
+            <form autocomplete="off" onsubmit="event.preventDefault(); return smallsearchvalidation()" role="search">
+              <div class="autocomplete">
+                <div class="btn-group">
+                  <input type="text" id="SmallSearchInput" placeholder="Enter Location...">
+                  <span id="clearsmallsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
+                </div>
+              </div>
+                <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Search Map</button>
+            </form>
+          </div>
         </div>
         <ul class="list-unstyled components">
           <li>
@@ -115,8 +135,7 @@
 
       <!-- Page Content Holder -->
       <div id="content">
-
-          <nav class="navbar navbar-default">
+                  <nav class="navbar navbar-default">
               <div class="container-fluid">
 
                   <div class="navbar-header">
@@ -130,18 +149,27 @@
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav navbar-left">
                           <li>
-                            <form autocomplete="off" onsubmit="event.preventDefault()" role="search" class="navbar-form navbar-right" >
-                              <div class="autocomplete">
-                                <input type="text" id="SearchInput" class="" placeholder="Search Map">
-                              </div>
-                                <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Find Search Map</button>
-                            </form>
+                            <div class="hidden-sm hidden-xs">
+                              <form autocomplete="off" onsubmit="event.preventDefault(); return searchvalidation()" role="search" class="navbar-form navbar-right" >
+                                <div class="autocomplete">
+                                  <div class="btn-group">
+                                    <input type="text" id="SearchInput" placeholder="Enter Location...">
+                                    <span id="clearsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
+                                  </div>
+                                </div>
+                                  <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Search Map</button>
+                              </form>
+                          </div>
                           </li>
                       </ul>
                   </div>
               </div>
           </nav>
-          <div class="directions-container" id="bs-example-navbar-collapse-1">
+
+          <div class = "alert alert-danger alert-dismissable" id="emptysearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The search location can't be empty</div>
+          <div class = "alert alert-danger alert-dismissable" id="wrongsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
+
+          <div class="directions-container" id="bs-example-navbar-collapse-1" style="display:none;">
               <div class="left"><button type="button" class="btn" onclick="prevNode()">Previous Step</button></div>
               <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
               <div class="right"><button type="button" class="btn" onclick="nextNode()">Next Step</button></div>
@@ -158,6 +186,52 @@
           </div>
         </div>
       </div>
+
+      <script>
+      $(document).ready(function(){
+        $("#StartPoint").keyup(function(){
+          $("#clearstart").toggle(Boolean($(this).val()));
+        });
+        $("#clearstart").toggle(Boolean($("#StartPoint").val()));
+        $("#clearstart").click(function(){
+          $("#StartPoint").val('').focus();
+          $(this).hide();
+        });
+      });
+      $(document).ready(function(){
+        $("#EndPoint").keyup(function(){
+          $("#clearend").toggle(Boolean($(this).val()));
+        });
+        $("#clearend").toggle(Boolean($("#EndPoint").val()));
+        $("#clearend").click(function(){
+          $("#EndPoint").val('').focus();
+          $(this).hide();
+        });
+      });
+      $(document).ready(function(){
+        $("#SearchInput").keyup(function(){
+          $("#clearsearch").toggle(Boolean($(this).val()));
+        });
+        $("#clearsearch").toggle(Boolean($("#SearchInput").val()));
+        $("#clearsearch").click(function(){
+          $("#SearchInput").val('').focus();
+          $(this).hide();
+        });
+      });
+      $(document).ready(function(){
+        $("#SmallSearchInput").keyup(function(){
+          $("#clearsmallsearch").toggle(Boolean($(this).val()));
+        });
+        $("#clearsmallsearch").toggle(Boolean($("#SmallSearchInput").val()));
+        $("#clearsmallsearch").click(function(){
+          $("#SmallSearchInput").val('').focus();
+          $(this).hide();
+        });
+      });
+      $("#findroute").click(function(){
+        $(".directions-container").show();
+      });
+      </script>
 
   </body>
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
