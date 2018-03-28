@@ -1,5 +1,5 @@
-function MoveToSub(){
-  Search=document.getElementById("SearchInput").value
+function MoveToSub(target){
+  Search=document.getElementById(target).value
 
   $.get("/polls/GoTo/",{"Room":Search}, function(Data){
 

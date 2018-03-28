@@ -23,10 +23,6 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-  </head>
-  <body>
-
     <script>
     $(document).ready(function () {
     $('#sidebarCollapse').on('click', function () {
@@ -41,15 +37,19 @@
         $('#sidebarCollapse').toggleClass('active');
       });
     });
-    </script>
 
-    <script>
     $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
     });
 
     </script>
+
+
+  </head>
+  <body>
+
+
     <div class="wrapper">
 
       <!--Sidebar-->
@@ -68,7 +68,7 @@
         <div class = "alert alert-danger alert-dismissable" id="wrongsmallsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
 
         <div class="sidebar-search">
-          <form name="route" autocomplete="off" onsubmit="event.preventDefault(); return validation()" role="search">
+          <form name="route" autocomplete="off" onsubmit="event.preventDefault();" role="search">
             <div class="autocomplete">
               <p>From:</p>
               <div class="btn-group">
@@ -94,7 +94,7 @@
                   <span id="clearsmallsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
                 </div>
               </div>
-                <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Search Map</button>
+                <button type="submit" class="btn btn-primary" onclick="MoveToSub('SmallSearchInput');">Search Map</button>
             </form>
           </div>
         </div>
@@ -140,7 +140,7 @@
                                     <span id="clearsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
                                   </div>
                                 </div>
-                                  <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Search Map</button>
+                                  <button type="submit" class="btn btn-primary" onclick="MoveToSub('SearchInput');">Search Map</button>
                               </form>
                           </div>
                           </li>
@@ -157,7 +157,7 @@
               <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
               <div class="right"><button type="button" class="btn" onclick="nextNode()">Next Step</button></div>
           </div>
-        <h2 id="MapNameHead"> Main Building </h2>
+        <h2 id="MapNameHead"> Ministry of Silly Walks 0 </h2>
         <div class="row">
 
             <div id="canvasHolder">
@@ -170,51 +170,7 @@
         </div>
       </div>
 
-      <script>
-      $(document).ready(function(){
-        $("#StartPoint").keyup(function(){
-          $("#clearstart").toggle(Boolean($(this).val()));
-        });
-        $("#clearstart").toggle(Boolean($("#StartPoint").val()));
-        $("#clearstart").click(function(){
-          $("#StartPoint").val('').focus();
-          $(this).hide();
-        });
-      });
-      $(document).ready(function(){
-        $("#EndPoint").keyup(function(){
-          $("#clearend").toggle(Boolean($(this).val()));
-        });
-        $("#clearend").toggle(Boolean($("#EndPoint").val()));
-        $("#clearend").click(function(){
-          $("#EndPoint").val('').focus();
-          $(this).hide();
-        });
-      });
-      $(document).ready(function(){
-        $("#SearchInput").keyup(function(){
-          $("#clearsearch").toggle(Boolean($(this).val()));
-        });
-        $("#clearsearch").toggle(Boolean($("#SearchInput").val()));
-        $("#clearsearch").click(function(){
-          $("#SearchInput").val('').focus();
-          $(this).hide();
-        });
-      });
-      $(document).ready(function(){
-        $("#SmallSearchInput").keyup(function(){
-          $("#clearsmallsearch").toggle(Boolean($(this).val()));
-        });
-        $("#clearsmallsearch").toggle(Boolean($("#SmallSearchInput").val()));
-        $("#clearsmallsearch").click(function(){
-          $("#SmallSearchInput").val('').focus();
-          $(this).hide();
-        });
-      });
-      $("#findroute").click(function(){
-        $(".directions-container").show();
-      });
-      </script>
+
 
   </body>
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
@@ -222,8 +178,11 @@
     <script src="{%static 'polls/js/autocomplete.js' %}"></script>>
     <script src="{%static 'polls/js/victor.js' %}"></script>
 
-  <script src="{%static 'polls/js/MapSwap.js' %}"></script>
-   <script src="{%static 'polls/js/Ministry_of_Silly_Walks_0.js' %}" id="MapJSFile" ></script>>
-  <script src="{%static 'polls/js/DisplayRoute.js' %}"></script>
+    <script src="{%static 'polls/js/MapSwap.js' %}"></script>
+    <script src="{%static 'polls/js/Ministry_of_Silly_Walks_0.js' %}" id="MapJSFile" ></script>>
+    <script src="{%static 'polls/js/DisplayRoute.js' %}"></script>
     <script src="{%static 'polls/js/MapMovement.js' %}"></script>
-      <script src="{%static 'polls/js/MoveTo.js' %}"></script>
+    <script src="{%static 'polls/js/MoveTo.js' %}"></script>
+    <script src="{%static 'polls/js/drawLabels.js' %}"></script>
+      <script src="{%static 'polls/js/InputValidate.js' %}"></script>
+        <script src="{%static 'polls/js/clearFields.js' %}"></script>

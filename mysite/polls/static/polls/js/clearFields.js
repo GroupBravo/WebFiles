@@ -1,0 +1,43 @@
+$(document).ready(function(){
+  $("#StartPoint").keyup(function(){
+    $("#clearstart").toggle(Boolean($(this).val()));
+  });
+  $("#clearstart").toggle(Boolean($("#StartPoint").val()));
+  $("#clearstart").click(function(){
+    $("#StartPoint").val('').focus();
+    $(this).hide();
+  });
+});
+$(document).ready(function(){
+  $("#EndPoint").keyup(function(){
+    $("#clearend").toggle(Boolean($(this).val()));
+  });
+  $("#clearend").toggle(Boolean($("#EndPoint").val()));
+  $("#clearend").click(function(){
+    $("#EndPoint").val('').focus();
+    $(this).hide();
+  });
+});
+$(document).ready(function(){
+  $("#SearchInput").keyup(function(){
+    $("#clearsearch").toggle(Boolean($(this).val()));
+  });
+  $("#clearsearch").toggle(Boolean($("#SearchInput").val()));
+  $("#clearsearch").click(function(){
+    $("#SearchInput").val('').focus();
+    $(this).hide();
+  });
+});
+$(document).ready(function(){
+  $("#SmallSearchInput").keyup(function(){
+    $("#clearsmallsearch").toggle(Boolean($(this).val()));
+  });
+  $("#clearsmallsearch").toggle(Boolean($("#SmallSearchInput").val()));
+  $("#clearsmallsearch").click(function(){
+    $("#SmallSearchInput").val('').focus();
+    $(this).hide();
+  });
+});
+$("#findroute").click(function(){
+  $(".directions-container").show();
+});

@@ -1,92 +1,4 @@
 
-
-
-
-
-function validation(){
-  $('#StartPoint').attr('style', "border:0px;");
-  $('#EndPoint').attr('style', "border:0px;");
-  $('#emptystart').hide();
-  $('#emptyfinish').hide();
-  $('#samevalues').hide();
-  $('#wrongstartvalue').hide();
-  $('#wrongendvalue').hide();
-
-  if (document.getElementById("StartPoint").value == "") {
-    $('#emptystart').show();
-    $('#StartPoint').attr('style', "border:#FF0000 2px solid;");
-  }
-  if (document.getElementById("EndPoint").value == "") {
-    $('#emptyfinish').show();
-    $('#EndPoint').attr('style', "border:#FF0000 2px solid;");
-  }
-  if (document.getElementById("StartPoint").value == document.getElementById("EndPoint").value) {
-    $('#samevalues').show();
-    $('#StartPoint').attr('style', "border:#FF0000 2px solid;");
-    $('#EndPoint').attr('style', "border:#FF0000 2px solid;");
-    return false;
-  }
-  for (i=0; i < $.locations.length; i++) {
-    if ($.locations[i] == document.getElementById("StartPoint").value){
-      return true;
-    }
-  }
-  $('#wrongstartvalue').show();
-  $('#StartPoint').attr('style', "border:#FF0000 2px solid;");
-  for (i=0; i < $.locations.length; i++) {
-    if ($.locations[i] == document.getElementById("EndPoint").value) {
-      return true;
-    }
-  }
-  $('#wrongendvalue').show();
-  $('#EndPoint').attr('style', "border:#FF0000 2px solid;");
-}
-
-function smallsearchvalidation(){
-  $('#SmallSearchInput').attr('style', "border:0px;");
-  $('#wrongsmallsearch').hide();
-  $('#emptysmallsearch').hide();
-  if (document.getElementById("SmallSearchInput").value == "") {
-    $('#emptysmallsearch').show();
-    $('#SmallSearchInput').attr('style', "border:#FF0000 2px solid;");
-  }
-  for (i=0; i < $.locations.length; i++) {
-    if ($.locations[i] == document.getElementById("SmallSearchInput").value) {
-      return true;
-    }
-  }
-  $('#wrongsmallsearch').show();
-  $('#SmallSearchInput').attr('style', "border:#FF0000 2px solid;");
-}
-
-function searchvalidation(){
-  $('#SearchInput').attr('style', "border:0px;");
-  $('#wrongsearch').hide();
-  $('#emptysearch').hide();
-  if (document.getElementById("SearchInput").value == "") {
-    $('#emptysearch').show();
-    $('#SearchInput').attr('style', "border:#FF0000 2px solid;");
-  }
-  for (i=0; i < $.locations.length; i++) {
-    if ($.locations[i] == document.getElementById("SearchInput").value) {
-      return true;
-    }
-  }
-  $('#wrongsearch').show();
-  $('#SearchInput').attr('style', "border:#FF0000 2px solid;");
-}
-
-
-
-
-
-
-
-
-
-
-
-
 $.locations=[];
 
 function autocomplete(inp) {
@@ -192,43 +104,16 @@ document.addEventListener("click", function (e) {
 });
 }
 
-function drawLabels(){
-  for (i=0;i<$.CurrentLabels.length; i++){
-
-    Label=$.CurrentLabels[i][0]
-    Coord=$.CurrentLabels[i][1]
-    //ctx.globalAlpha=0.2;
-    //ctx.fillStyle="blue";
-
-    Rect1=parseFloat(Coord[0])
-    Rect2=parseFloat(Coord[1])-40
-    /**ctx.fillRect(Rect1,Rect2,Label.length*50*537.37/1000,45);
-    ctx.globalAlpha=1
-    **/
-    ctx.fillStyle="#3737f4"
-    ctx.font = "25px  Verdana";
-    ctx.fillText(Label,Coord[0],Coord[1]);
-
-  }
-}
-$.CurrentLabels=[];
-function GetLabels(){
-      $.get("/polls/getLabels/",{"Map":$.CurrentMap}, function(Info){
-        $.CurrentLabels=Info
-        drawLabels();
-      });
-
-}
-
 function GetRooms(){
 
   $.get("/polls/validNames",function(Info){
     $.locations=Info
-    console.log($.locations);
+  
 
     autocomplete(document.getElementById("StartPoint"), $.locations);
     autocomplete(document.getElementById("EndPoint"), $.locations);
     autocomplete(document.getElementById("SearchInput"), $.locations);
+    autocomplete(document.getElementById("SmallSearchInput"),$.locations);
   });
 
 }

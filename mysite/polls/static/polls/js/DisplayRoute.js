@@ -3,6 +3,7 @@
 // Sends Get Request for route information
 //Sets storage variables and calls function to generate the route
 function DisplayRoute(){
+  if (validation()){
   Start=document.getElementById("StartPoint").value
   End=document.getElementById("EndPoint").value
 
@@ -22,7 +23,7 @@ function DisplayRoute(){
     SwapMap($.CurrentMapList[$.CurrentMapList.length-1]);
 
   });
-
+  }
 }
 //Generates route on the canvas
 function drawRoute(){
