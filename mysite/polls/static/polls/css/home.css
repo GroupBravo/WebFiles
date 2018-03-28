@@ -23,6 +23,12 @@ canvas {
   width: 100%;
 }
 
+#closesidebar {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+}
+
 /*clear text*/
 .searchclear {
     position: absolute;
