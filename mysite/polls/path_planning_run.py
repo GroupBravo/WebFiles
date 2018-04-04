@@ -1,5 +1,5 @@
 #get data
-
+#this is the main function that run the main loop 
 def load_data(start,end):
 
     deguging=False

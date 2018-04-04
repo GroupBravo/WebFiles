@@ -13,7 +13,8 @@ class node_add():
         self.RED = (255, 0, 0)
 
 
-
+        #tape
+        self.floor=0
         self.mouse_is_down=False
         self.mouse_is_up=True
 
@@ -23,6 +24,7 @@ class node_add():
         self.mode="nodes"
         self.lines=[]
         self.start=(0,0)
+        self.scleing_factor=0.5
 
 
         pygame.init()
@@ -84,40 +86,63 @@ class node_add():
 
         main=database_table_read.load_data()
         off_set_data=main.get_data("building_positions")
+        if  len(data_base_data)>0:
+            markewww=data_base_data[0][0]
+            markewww=markewww.split("-")
+            for aaa in off_set_data:
+                #print("qqqq",markewww)
 
-        markewww=data_base_data[0][0]
-        markewww=markewww.split("-")
-        for aaa in off_set_data:
-            print("qqqq",markewww)
+                #print("aaa",aaa[0],markewww[0])
+                if aaa[0]==markewww[0]:
+                    temp2=aaa
+            temp=temp2[1]
+            #print(temp)
+            temp=temp.split(",")
 
-            print("aaa",aaa[0],markewww[0])
-            if aaa[0]==markewww[0]:
-                temp2=aaa
-        temp=temp2[1]
-        print(temp)
-        temp=temp.split(",")
-        off_set=int(temp[0]),int(temp[1])
+            off_set=int(temp[0]),int(temp[1])
+
+            #tape
+            if self.floor==1:
+                new_data=[]
+                for q in data_base_data:
+                    if q[2]=="1":
+                        new_data.append(q)
+                #print("tape 2")
+                data_base_data=new_data
+            for q in data_base_data:
+                #print("data in",q)
+                temp=q[1]
+                #print("temp",temp)
+                temp2=temp.split(",")
+                #print("temp",temp2)
+                y1,x1=int(temp2[0]),int(temp2[1])
+                self.nodes.append((y1,x1))
+                temp=q[4].split(";")
 
 
-        for q in data_base_data:
-            #print("data in",q)
-            temp=q[1]
-            #print("temp",temp)
-            temp2=temp.split(",")
-            y1,x1=int(temp2[0]),int(temp2[1])
-            self.nodes.append((y1,x1))
-            temp=q[4].split(";")
 
+                for w in temp:
+                    temp2=w.split("-")
+                    #print("tmpes",temp2)
+                    temp3=temp2[2]
 
+                    temp3=temp3.split(",")
+                    y,x=float(temp3[0]),float(temp3[1])
+                    #tape
+                    #print("preper  y and x",y,x)
 
-            for w in temp:
-                temp2=w.split("-")
-                #print("tmpes",temp2)
-                temp3=temp2[2]
-
-                temp3=temp3.split(",")
-                y,x=int(temp3[0]),int(temp3[1])
-                self.lines.append(((y1,x1),(y-off_set[0],x-off_set[1])))
+                    #print("scaling factor",self.scleing_factor)
+                    #print("pre y and x",y,x)
+                    #print("off set",off_set)
+                    y=y-off_set[0]
+                    x=x-off_set[1]
+                    y=y/self.scleing_factor
+                    x=x/self.scleing_factor
+                    #print ("line start",y1,x1)
+                    #print("line end ",y,x)
+                    #print (" ")
+                    #y,x=0,0
+                    self.lines.append(((y1,x1),(y,x)))
 
 
 
@@ -132,8 +157,8 @@ class node_add():
 
 
 
-    def maths(self,a,b):
-        print("mathin",a,b)
+    def maths(self,a,b,z):
+        print("mathin",a,b,z)
 
         x1=int(a[0])
         y1=int(a[1])
@@ -147,7 +172,11 @@ class node_add():
         c=a**2+b**2
         c=c**0.5
         c=round(c,2)
-        return(c)
+
+        z=int(z)
+        c2=c**2+(z)**2
+        c2=c2**0.5
+        return(c2)
 
 
     def main_loop(self):
@@ -215,14 +244,37 @@ class node_add():
             self.screen.fill(self.WHITE)
             x,y=pygame.mouse.get_pos()
 
+
             self.screen.blit(self.background_image, [0, 0])
+            self.add_teaxt((x,y),(10,10))
             temp=50
             for q in self.list_of_maps:
                 if x>800:
                     if y>temp:
                         if y<temp+50:
-                            self.background_image=pygame.image.load(q).convert()
-                            self.rest(q)
+                            toload=q
+                            #tape
+
+                            #tape
+                            if toload=="Camelot-1.png":
+                                toload="Camelot.png"
+                                self.rest(toload)
+                                self.floor=1
+                            else:
+                                self.rest(toload)
+                                self.floor=0
+                            self.background_image=pygame.image.load(toload).convert()
+                            if toload=="Parrot_Shop.png":
+                                self.scleing_factor=0.5
+                            if toload=="Outside.png":
+                                self.scleing_factor=1
+                            if toload=="Camelot.png":
+                                self.scleing_factor=0.5
+                            if toload=="Ministry_of_Silly_Walks.bmp":
+                                self.scleing_factor=0.5
+                            if toload=="Camelot-1.png":
+                                self.scleing_factor=0.5
+                            print("sacaling factoer is ",self.scleing_factor)
                 self.add_teaxt(q,(800,temp))
                 temp=temp+100
 
@@ -239,6 +291,8 @@ class node_add():
 
             for q in self.nodes:
                 pygame.draw.rect(self.screen, self.RED, [q[0], q[1], 20, 20],2)
+
+                self.add_teaxt(q,(q[0]+8,q[1]+8))
 
 
             for q in self.lines:
@@ -281,7 +335,7 @@ class node_add():
             if q[0]==cureent_map:
                 temp2=q
         temp=temp2[1]
-        print(temp)
+        #print(temp)
         temp=temp.split(",")
         off_set=int(temp[0]),int(temp[1])
 
@@ -308,7 +362,7 @@ class node_add():
             temp2=""
 
             for w in save_to_data[q]:
-                temp2=temp2+str(self.maths(q,w))+"-"
+                temp2=temp2+str(self.maths(q,w,self.floor)*self.scleing_factor)+"-"
                 temp=temp+str(w)+"-"
 
             Distances=temp2
@@ -319,16 +373,17 @@ class node_add():
             temp_mark=-1
             for qwe in q:
                 temp_mark=temp_mark+1
-                print("qwe",qwe)
+                #print("qwe",qwe)
 
-                qwe2=qwe+off_set[temp_mark]
+                qwe2=((qwe*self.scleing_factor)+off_set[temp_mark])
                 coordintsIn=coordintsIn+str(qwe)
                 Coordinate=Coordinate+str(qwe2)
                 if run_one ==True:
                     coordintsIn=coordintsIn+","
                     Coordinate=Coordinate+","
                     run_one=False
-            ID=(cureent_map+"-"+"0"+"-"+Coordinate)
+            adding_floor=str(self.floor)
+            ID=(cureent_map+"-"+adding_floor+"-"+Coordinate)
 
 
 
@@ -345,7 +400,7 @@ class node_add():
                     temp_mark=temp_mark+1
                     if temp_mark>1:
                         temp_mark=0
-                    rt=off_set[temp_mark]+rt
+                    rt=off_set[temp_mark]+(rt*self.scleing_factor)
 
                     temp4=temp4+str(rt)
                     if run_one2==True:
@@ -354,7 +409,7 @@ class node_add():
 
 
 
-                Connections=Connections+(cureent_map+"-"+"0"+"-"+temp4)
+                Connections=Connections+(cureent_map+"-"+adding_floor+"-"+temp4)
 
 
                 Connections=Connections+";"
@@ -362,7 +417,9 @@ class node_add():
             Connections=Connections[0:-1]
             Distances=Distances[0:-1]
 
-            floor="0"
+
+
+            self.floor=str(self.floor)
             Label="0"
 
 
@@ -370,7 +427,7 @@ class node_add():
             print("data in")
             print("id",ID)
             print("local_Coordinate=0,0",coordintsIn)
-            print("floor",floor)
+            print("floor",self.floor)
             print("Label",Label)
             print("connect",Connections)
             print("Distances",Distances)
@@ -387,10 +444,11 @@ class node_add():
                     break
 
 
+
             print("current_map",cureent_map)
             if write_data==True:
                 cursor.execute('''INSERT INTO '''+cureent_map+'''(ID,CoordinatesIn,Floor,Label,Connections,Distance)
-                              VALUES(?,?,?,?,?,?)''',(ID,coordintsIn,floor,Label,Connections,Distances))
+                              VALUES(?,?,?,?,?,?)''',(ID,coordintsIn,self.floor,Label,Connections,Distances))
         db.commit()
 
 
@@ -421,6 +479,6 @@ pygame.display.quit()
 
 
 
-wer=node_add(("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp"))
+wer=node_add(("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png"))
 
 wer.main_loop()
