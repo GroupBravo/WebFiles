@@ -153,9 +153,22 @@
           <div class = "alert alert-danger alert-dismissable" id="wrongsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
 
           <div class="directions-container" id="bs-example-navbar-collapse-1" style="display:none;">
+
               <div class="left"><button type="button" class="btn" onclick="prevNode()">Previous Step</button></div>
               <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
               <div class="right"><button type="button" class="btn" onclick="nextNode()">Next Step</button></div>
+
+
+
+          </div>
+          <div class="directions-container" id="bs-example-navbar-collapse-2" style="display:none;">
+
+              <div class="left"><button type="button" class="btn" onclick="$.currentNode=0; prevNode()">Previous Map</button></div>
+
+              <div class="right"><button type="button" class="btn" onclick="$.currentNode=$.CurrentDisplayRoute.length; nextNode()">Previous Map</button></div>
+
+
+
           </div>
         <h2 id="MapNameHead"> Ministry of Silly Walks 0 </h2>
         <div class="row">
