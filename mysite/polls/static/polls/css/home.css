@@ -4,6 +4,9 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
+
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 body {
     font-family: 'Calibri', sans-serif;
     background: #fafafa;
