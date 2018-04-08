@@ -1,37 +1,67 @@
 
 
+
+
+
+
+
+#This module will
+#search through the environment is given and return the optimal route between two points.
+# Will loading new data if needed
+#will return a specified output if it is not able to create a path between points
+
+
+#The relevant modules that need to be imported into this module using the form specified by the  Django framework
+#This module will be given a tablename and will return all the data in that table
+from polls import database_table_read
+
+
+
+
+
+
+
+
 class a_star():
+
+    #This module well create and set up important variables that will be used throughout the code  and  define the format that some of these dictionaries take using the first point as an example
     def __init__(self,start_point,end_point,map_data,tables_to_load):
+
+        #The main variables used throughout the code
         self.map_data=map_data
         self.table_in_use=tables_to_load
         self.debug=False
 
-
-
         self.current_postion=start_point
         self.start_point=start_point
         self.end_point=end_point
-
 
         self.openlist=[]
         self.closedlsit=[]
         self.node_data={}
 
 
-
+        #An example of the loop will be carried out when exploring points
+        #With the admission of how it will define what node it came from or in this context its parent node
+        #This stores the connections that the current node can make with other nodes
         constions=self.find_data(start_point)
 
-        #print(self.find_data(start_point),"teast")
+        # This calculates the total cost of this node
         total_cost=self.distace_to_go_cost(start_point)
+
+
+        # This defines the format the dictionary will take the relevant data in. It should be noted. The parent being defined by the string parent is simply there is an endpoint and the program begins its back propagation
 
         #tottal_cost,travel_Cost,parent,conetions
         self.node_data[start_point]=total_cost,0,"parent",constions
 
+
         self.openlist.append(start_point)
 
 
-        #print(self.node_data)
 
+
+#This module will matchup a given ID with a entry in the map data array and return the information  about what connections of this note has to other nodes as well as the cost of each one of those connections
     def find_data(self,data):
         if self.debug==True:
             print("")
@@ -49,9 +79,10 @@ class a_star():
         if len(contions)==0:
             if self.debug==True:
                 print("data not found",data)
+
                 print("code will now crash")
                 print("")
-            #will crash code
+            
         point_to_explore=[]
         contions=contions.split(";")
         weights=weights.split("-")
@@ -206,7 +237,6 @@ class a_star():
                 temp=temp.split("-")
 
                 if not temp[0] in self.table_in_use:
-                    from polls import database_table_read
                     laods=database_table_read.load_data()
                     temp2=laods.get_data(temp[0])
                     self.map_data.extend(temp2)
