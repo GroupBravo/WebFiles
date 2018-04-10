@@ -23,10 +23,11 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--Open and close sidebar after clicking a sidebar toggle button-->
     <script>
     $(document).ready(function () {
     $('#sidebarCollapse').on('click', function () {
-
         $('#sidebar').toggleClass('active');
         $(this).toggleClass('active');
       });
@@ -37,19 +38,14 @@
         $('#sidebarCollapse').toggleClass('active');
       });
     });
-
     $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
     });
-
     </script>
-
-
   </head>
+  
   <body>
-
-
     <div class="wrapper">
 
       <!--Sidebar-->
@@ -59,6 +55,7 @@
           <h3>Find the shortest route between two places on campus</h3>
         </div>
 
+        <!--Alert messages for invalid search input-->
         <div class = "alert alert-danger alert-dismissable" id="emptystart" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "From:" field can't be empty</div>
         <div class = "alert alert-danger alert-dismissable" id="emptyfinish" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "To:" field can't be empty</div>
         <div class = "alert alert-danger alert-dismissable" id="samevalues" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The values in the "From:" and "To:" fields must be different</div>
@@ -67,6 +64,7 @@
         <div class = "alert alert-danger alert-dismissable" id="emptysmallsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The search location can't be empty</div>
         <div class = "alert alert-danger alert-dismissable" id="wrongsmallsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
 
+        <!--Search form-->
         <div class="sidebar-search">
           <form name="route" autocomplete="off" onsubmit="event.preventDefault();" role="search">
             <div class="autocomplete">
@@ -85,6 +83,8 @@
             </div>
             <button id="findroute" type="submit" class="btn btn-primary" onclick="DisplayRoute();">Find Route</button>
           </form>
+
+          <!--Location search form appearing on sidebar on small devices-->
           <div class="hidden-md hidden-lg">
             <p style="margin-top: 10px;">Search the map <p>
             <form autocomplete="off" onsubmit="event.preventDefault(); return smallsearchvalidation()" role="search">
@@ -98,6 +98,8 @@
             </form>
           </div>
         </div>
+
+        <!--Menu with all available buildings-->
         <ul class="list-unstyled components">
           <li>
             <a href="#Submenu" data-toggle="collapse" aria-expanded="true"> The Flying Circus </a>
@@ -116,60 +118,58 @@
         </ul>
       </nav>
 
-      <!-- Page Content Holder -->
+      <!--Page Content Holder-->
       <div id="content">
-                  <nav class="navbar navbar-default">
-              <div class="container-fluid">
-
-                  <div class="navbar-header">
-                      <button type="button" id="sidebarCollapse" class="navbar-btn">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                      </button>
+        <!--Top Navigation Bar-->
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <!--Sidebar toggle button-->
+              <button type="button" id="sidebarCollapse" class="navbar-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-left">
+                <li>
+                  <div class="hidden-sm hidden-xs">
+                    <!--Location search form-->
+                    <form autocomplete="off" onsubmit="event.preventDefault(); return searchvalidation()" role="search" class="navbar-form navbar-right" >
+                      <div class="autocomplete">
+                        <div class="btn-group">
+                          <input type="text" id="SearchInput" placeholder="Enter Location...">
+                          <span id="clearsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary" onclick="MoveToSub('SearchInput');">Search Map</button>
+                    </form>
                   </div>
-
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <ul class="nav navbar-nav navbar-left">
-                          <li>
-                            <div class="hidden-sm hidden-xs">
-                              <form autocomplete="off" onsubmit="event.preventDefault(); return searchvalidation()" role="search" class="navbar-form navbar-right" >
-                                <div class="autocomplete">
-                                  <div class="btn-group">
-                                    <input type="text" id="SearchInput" placeholder="Enter Location...">
-                                    <span id="clearsearch" class="glyphicon glyphicon-remove-circle searchclear"></span>
-                                  </div>
-                                </div>
-                                  <button type="submit" class="btn btn-primary" onclick="MoveToSub('SearchInput');">Search Map</button>
-                              </form>
-                          </div>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
-
-          <div class = "alert alert-danger alert-dismissable" id="emptysearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The search location can't be empty</div>
-          <div class = "alert alert-danger alert-dismissable" id="wrongsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
-
-          <div class="directions-container" id="bs-example-navbar-collapse-1" style="display:none;">
-
-              <div class="left"><button type="button" class="btn" onclick="prevNode()">Previous Step</button></div>
-              <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
-              <div class="right"><button type="button" class="btn" onclick="nextNode()">Next Step</button></div>
-
-
-
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="directions-container" id="bs-example-navbar-collapse-2" style="display:none;">
+        </nav>
 
-              <div class="left"><button type="button" class="btn" onclick="$.currentNode=0; prevNode()">Previous Map</button></div>
+        <!--Alert messages for wrong location search input-->
+        <div class = "alert alert-danger alert-dismissable" id="emptysearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The search location can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongsearch" role="alert" style="display:none; margin: 3px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong search location. Pick a correct value from the list.</div>
 
-              <div class="right"><button type="button" class="btn" onclick="$.currentNode=$.CurrentDisplayRoute.length; nextNode()">Next Map</button></div>
-
-
-
+        <!--Directions-->
+        <div class="directions-container" id="bs-example-navbar-collapse-1" style="display:none;">
+          <div class="row">
+            <div class="left"><button type="button" class="btn btn-primary" onclick="prevNode()">Previous Step</button></div>
+            <div class"directions" ><p id="directionText"> Text directions will appear here <p></div>
+            <div class="right"><button type="button" class="btn btn-primary" onclick="nextNode()">Next Step</button></div>
           </div>
+          <div class="row">
+            <div class="bottom-left"><button type="button" class="btn" onclick="$.currentNode=0; prevNode()">Previous Map</button></div>
+            <div class="bottom-right"><button type="button" class="btn" onclick="$.currentNode=$.CurrentDisplayRoute.length; nextNode()">Next Map</button></div>
+          </div>
+        </div>
+
+        <!--Map Canvas-->
         <h2 id="MapNameHead"> Ministry of Silly Walks 0 </h2>
         <div class="row">
 
@@ -182,9 +182,6 @@
           </div>
         </div>
       </div>
-
-
-
   </body>
     <script src="{%static 'polls/js/MapTop.js' %}"></script>>
     <script src="{%static 'polls/js/MapSwap.js' %}"></script>>
@@ -197,5 +194,5 @@
     <script src="{%static 'polls/js/MapMovement.js' %}"></script>
     <script src="{%static 'polls/js/MoveTo.js' %}"></script>
     <script src="{%static 'polls/js/drawLabels.js' %}"></script>
-      <script src="{%static 'polls/js/InputValidate.js' %}"></script>
-        <script src="{%static 'polls/js/clearFields.js' %}"></script>
+    <script src="{%static 'polls/js/InputValidate.js' %}"></script>
+    <script src="{%static 'polls/js/clearFields.js' %}"></script>
