@@ -23,6 +23,27 @@ window.onload = function(){
   }
 //Draw default map and
 UpdateCanvas();
+
+myElement=document.getElementById('canvasHolder')
+  var hammertime = new Hammer(myElement);
+  hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
+  currentTime=80
+  hammertime.on('pan', function(ev) {
+    if (ev.deltaTime<80){
+      lastX=0
+      lastY=0
+    }
+    ctx.translate(ev.deltaX-lastX,ev.deltaY-lastY);
+    lastX=ev.deltaX
+    lastY=ev.deltaY
+    UpdateCanvas();
+  	console.log(ev);
+  });
+
+  hammertime.get('pinch').set({ enable: true, threshold : 10 });
+  hammertime.on('pinch', function(ev) {
+      zoom(ev.delta)
+  });
 GetLabels();
   var lastX=canvas.width/2, lastY=canvas.height/2;
   var dragStart,dragged;
