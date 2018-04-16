@@ -38,6 +38,3 @@ $(document).ready(function(){
     $(this).hide();
   });
 });
-$("#findroute").click(function(){
-  $(".directions-container").show();
-});

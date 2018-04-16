@@ -23,7 +23,7 @@ window.onload = function(){
   }
 //Draw default map and
 UpdateCanvas();
-
+/*
 myElement=document.getElementById('canvasHolder')
   var hammertime = new Hammer(myElement);
   hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL, threshold: 10 });
@@ -42,8 +42,10 @@ myElement=document.getElementById('canvasHolder')
 
   hammertime.get('pinch').set({ enable: true, threshold : 10 });
   hammertime.on('pinch', function(ev) {
-      zoom(ev.delta)
+      zoom(ev)
   });
+
+  */
 GetLabels();
   var lastX=canvas.width/2, lastY=canvas.height/2;
   var dragStart,dragged;
