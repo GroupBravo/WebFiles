@@ -27,7 +27,7 @@ def load_data(start,end):
 
     #This variable is used to control multiple print statements throughout the code that is useful for debugging potential issues
 
-    Debugging=True
+    Debugging=False
 
 
 
