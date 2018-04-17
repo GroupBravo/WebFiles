@@ -24,4 +24,4 @@ class load_data():
             return(user1)
         else:
             print("the data is not safe", table)
-            return("killlll")
+            return("stop")

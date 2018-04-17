@@ -27,14 +27,14 @@ def load_data(start,end):
 
     #This variable is used to control multiple print statements throughout the code that is useful for debugging potential issues
 
-    deguging=True
+    Debugging=True
 
 
 
 
     #A set of print statements use for debugging
     #Some of the prints statements may seem unneeded in fact they are  used to provide an easier readable terminal interface
-    if deguging==True:
+    if Debugging==True:
         print("")
         print("start",start)
         print("end",end)
@@ -52,7 +52,7 @@ def load_data(start,end):
     table2=table2[0]
 
     #A set of print statements use for debugging
-    if deguging==True:
+    if Debugging==True:
         print("")
         print("Tables to load")
 
@@ -62,7 +62,7 @@ def load_data(start,end):
     if table1==table2:
 
         #A set of print statements use for debugging
-        if deguging==True:
+        if Debugging==True:
             print("Loading Table ",table1)
             print("The start and end point are in the same building")
 
@@ -77,7 +77,7 @@ def load_data(start,end):
         tables_to_load.append(table2)
 
         #A set of print statements use for debugging
-        if deguging==True:
+        if Debugging==True:
             print("loading",table1)
             print("loading ",table2)
 
@@ -86,21 +86,21 @@ def load_data(start,end):
             tables_to_load.append("Outside")
 
             #A set of print statements use for debugging
-            if deguging==True:
+            if Debugging==True:
                 print("loading out_side table")
 
         #A set of print statements use for debugging
-        if deguging==True:
+        if Debugging==True:
             print("start and end are NOT in the same building")
 
     #A set of print statements use for debugging
-    if deguging==True:
+    if Debugging==True:
         print("")
 
 
 
     #A set of print statements use for debugging
-    if deguging==True:
+    if Debugging==True:
         print("tables to laod",tables_to_load)
 
     #The data from the tables that the previous court has decided is needed is then retrieved from the database and put into an array
@@ -111,8 +111,8 @@ def load_data(start,end):
         main=database_table_read.load_data()
 
         #A set of print statements use for debugging
-        if deguging==True:
-            print("laoding to vaibe table",q)
+        if Debugging==True:
+            print("loading table ",q)
 
 
 
@@ -121,7 +121,7 @@ def load_data(start,end):
 
     #An instance of the path planning algorithm is then created with the relevant data being passed to it
 
-    if deguging==True:
+    if Debugging==True:
         print("path planing started 1 ")
     for q in data_base_data:
         print(q)
@@ -132,13 +132,13 @@ def load_data(start,end):
 
 
     #The instance of the pathfinding algorithm is then run
-    if deguging==True:
+    if Debugging==True:
         print("path planing started 2 ")
     final_path=(t.main())
 
     #A set of print statements use for debugging
-    if deguging==True:
-        print("t",final_path)
+    if Debugging==True:
+        print("path",final_path)
 
     #The output of the pathfinding algorithm is then checked to make sure that it was possible for the pathfinding algorithm to find a path between the two points
 
@@ -153,7 +153,7 @@ def load_data(start,end):
 
 
     #A set of print statements use for debugging
-    if deguging==True:
+    if Debugging==True:
         for y in final_path[0]:
             print("Path given by path planning part")
             print(y)
@@ -164,7 +164,7 @@ def load_data(start,end):
     for q in final_path[0]:
 
         marker=marker+1
-        table,floor,coord=q.split("-")
+        table,floor,Coordinates=q.split("-")
 
         table+="_"+floor
         if not table in  maps_used:
@@ -173,18 +173,18 @@ def load_data(start,end):
 
 
 
-        coord=final_path[1][marker].split(",")
+        Coordinates=final_path[1][marker].split(",")
 
-        coord= int(coord[0]),int(coord[1])
-        finalRoutes[len(maps_used)-1].append(coord)
+        Coordinates= int(Coordinates[0]),int(Coordinates[1])
+        finalRoutes[len(maps_used)-1].append(Coordinates)
 
     finalRoutes.insert(0,maps_used)
 
-    geve_to_perople=[finalRoutes[0]]
+    Give_to_people=[finalRoutes[0]]
 
     for q in finalRoutes[1:]:
         #A set of print statements use for debugging
-        if deguging==True:
+        if Debugging==True:
             print("Data to be passed on")
             print("normal")
             print(q)
@@ -193,16 +193,16 @@ def load_data(start,end):
         temp=list(reversed(q))
 
         #A set of print statements use for debugging
-        if deguging==True:
+        if Debugging==True:
             print("fliped")
             print(temp)
-        geve_to_perople.append(temp)
+        Give_to_people.append(temp)
 
 
 
     #A set of print statements use for debugging
-    if deguging==True:
-        for q in geve_to_perople:
+    if Debugging==True:
+        for q in Give_to_people:
             print(q)
 
-    return geve_to_perople
+    return Give_to_people
