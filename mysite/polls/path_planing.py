@@ -351,5 +351,5 @@ class a_star():
 
             if len(self.openlist)==0:
                 return("cant make a path ")
-                
+
             self.current_postion=self.openlist[0]

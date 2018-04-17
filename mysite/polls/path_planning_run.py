@@ -27,7 +27,7 @@ def load_data(start,end):
 
     #This variable is used to control multiple print statements throughout the code that is useful for debugging potential issues
 
-    deguging=False
+    deguging=True
 
 
 
@@ -120,12 +120,20 @@ def load_data(start,end):
 
 
     #An instance of the path planning algorithm is then created with the relevant data being passed to it
+
+    if deguging==True:
+        print("path planing started 1 ")
+    for q in data_base_data:
+        print(q)
+        print("")
     t=path_planing.a_star(start,end,data_base_data,tables_to_load)
 
 
 
 
     #The instance of the pathfinding algorithm is then run
+    if deguging==True:
+        print("path planing started 2 ")
     final_path=(t.main())
 
     #A set of print statements use for debugging
