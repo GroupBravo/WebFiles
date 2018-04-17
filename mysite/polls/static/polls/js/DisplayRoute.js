@@ -40,6 +40,16 @@ function drawRoute(){
     ctx.lineTo(EndPoint[0],EndPoint[1]);
     ctx.stroke();
 
+
+    var radius = 5;
+    ctx.beginPath();
+    ctx.arc(StartPoint[0], StartPoint[1], radius, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#000000';
+    ctx.stroke();
+
   }
 
 }
