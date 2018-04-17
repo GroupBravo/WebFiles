@@ -4,6 +4,8 @@
 //Sets storage variables and calls function to generate the route
 function DisplayRoute(){
   if (validation()){
+  console.log("RUNNING")
+  $(".directions-container").show();
   Start=document.getElementById("StartPoint").value
   End=document.getElementById("EndPoint").value
 

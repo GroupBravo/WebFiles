@@ -44,7 +44,7 @@ class a_star():
         #An example of the loop will be carried out when exploring points
         #With the admission of how it will define what node it came from or in this context its parent node
         #This stores the connections that the current node can make with other nodes
-        constions=self.find_data(start_point)
+        connections=self.find_data(start_point)
 
         # This calculates the total cost of this node
         total_cost=self.distace_to_go_cost(start_point)
@@ -53,7 +53,7 @@ class a_star():
         # This defines the format the dictionary will take the relevant data in. It should be noted. The parent being defined by the string parent is simply there is an endpoint and the program begins its back propagation
 
         #tottal_cost,travel_Cost,parent,conetions
-        self.node_data[start_point]=total_cost,0,"parent",constions
+        self.node_data[start_point]=total_cost,0,"parent",connections
 
 
         self.openlist.append(start_point)
@@ -312,9 +312,9 @@ class a_star():
 
                 total_cost=distace_to_go_cost+travel_Cost
 
-                constions=self.find_data(node_name)
+                connections=self.find_data(node_name)
                 #tottal_cost,travel_Cost,parent,conetions
-                self.node_data[node_name]=total_cost,travel_Cost,self.current_postion,constions
+                self.node_data[node_name]=total_cost,travel_Cost,self.current_postion,connections
 
                 #A set of print statements use for debugging
                 if self.debug==True:
@@ -334,17 +334,17 @@ class a_star():
                 for q in self.openlist:
                     print("id")
                     print(q)
-                    print("vaule")
+                    print("value")
                     print(self.node_data[q][0])
                     print("")
                 print("")
 
                 print("")
-                print("cloed list")
+                print("closed list")
                 for q in self.closedlsit:
                     print("id")
                     print(q)
-                    print("vaule")
+                    print("value")
                     print(self.node_data[q][0])
                     print("")
                 print("")
