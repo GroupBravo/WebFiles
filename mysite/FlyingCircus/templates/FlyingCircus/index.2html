@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Home</title>
+    {% load static %}
+    <link href="{%static 'FlyingCircus/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{%static 'FlyingCircus/js/jquery-1.12.2.min.js' %}"></script>
+    <script src="{%static 'FlyingCircus/js/bootstrap.min.js' %}"></script>
+    <script src="{%static 'FlyingCircus/js/ShowTest.js' %}"></script>
+    <link href="{%static 'FlyingCircus/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{%static 'FlyingCircus/css/Home.css' %}"/>
+
+    <!-- Bootstrap Js CDN -->
+
+
+    <!-- Bootstrap -->
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("toggled");
+});
+</script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+  </head>
+  <body>
+
+    <script>
+    $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+      });
+    });
+    </script>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+
+    </script>
+
+
+
+    <button onclick="nextNode()"> Next Node </button>
+    <button onclick="prevNode()">previous </button>
+    <p id="TestPlace"> </p>
+    <h1>{{ Num1 }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="/FlyingCircus/GoTo/" method="post">
+    {% csrf_token %}
+
+        <input type="number" name="num1" id="Num1"/>
+
+    <input type="submit" value="Vote" />
+    </form>
+
+    <div class="wrapper">
+
+      <!--Sidebar-->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>Find the shortest route between two places on campus</h3>
+        </div>
+
+        <div class = "alert alert-danger alert-dismissable" id="emptystart" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "From:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="emptyfinish" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The "To:" field can't be empty</div>
+        <div class = "alert alert-danger alert-dismissable" id="samevalues" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The values in the "From:" and "To:" fields must be different</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongstartvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong start point. Pick a correct value from the list.</div>
+        <div class = "alert alert-danger alert-dismissable" id="wrongendvalue" role="alert" style="display:none; width: 280px;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Wrong end point. Pick a correct value from the list.</div>
+
+        <div class="sidebar-search">
+          <form name="route" autocomplete="off" onsubmit="event.preventDefault(); return validation()" role="search">
+            <div class="autocomplete">
+              <p>From:</p>
+              <input type="text"  id="StartPoint" placeholder="Starting Point">
+            </div>
+            <div class="autocomplete">
+              <p>To:</p>
+              <input type="text"  id="EndPoint" placeholder="End Point">
+            </div>
+            <button id="find" type="submit" class="btn btn-primary" onclick="DisplayRoute();">Find Route</button>
+          </form>
+        </div>
+        <ul class="list-unstyled components">
+          <li>
+            <a href="#Submenu" data-toggle="collapse" aria-expanded="false"> The Flying Circus </a>
+            <ul class="collapse list-unstyled" id="Submenu">
+              <li><div class="building" onclick="SwapMap('Outside_0') " id="1"><a>OutSide</a></div></li>
+              <li><div class="building" onclick="SwapMap('Ministry_of_Silly_Walks_0') " id="2"> <a>Ministry of Silly Walks</a></div></li>
+              <li><div class="building"  onclick="SwapMap('Parrot_Shop_0') " id="3"><a>Parrot Shop</a></div></li>
+
+                  <a href="#Camalot" data-toggle="collapse" aria-expanded="false"> Camalot </a>
+                    <ul class="collapse list-unstyled" id="Camalot">
+                      <li><div class="building" onclick="SwapMap('Camelot_0') " id="2"> <a>Camelot Ground Floor</a></div></li>
+                      <li><div class="building"  onclick="SwapMap('Camelot_1') " id="3"><a>Camelot Floor 1</a></div></li>
+                    </ul>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+
+                  <div class="navbar-header">
+                      <button type="button" id="sidebarCollapse" class="navbar-btn">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                      </button>
+                  </div>
+
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav navbar-left">
+                          <li>
+                            <form autocomplete="off" onsubmit="event.preventDefault()" role="search" class="navbar-form navbar-right" >
+                              <div class="autocomplete">
+                                <input type="text" id="SearchInput" class="" placeholder="Search Map">
+                              </div>
+                                <button type="submit" class="btn btn-primary" onclick="MoveToSub();">Find Search Map</button>
+                            </form>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+        <h2 id="MapNameHead"> Map here: </h2>
+        <div class="row">
+
+            <div id="canvasHolder">
+                <canvas id="canvas">
+
+                </canvas>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+  </body>
+    <script src="{%static 'FlyingCircus/js/MapTop.js' %}"></script>>
+    <script src="{%static 'FlyingCircus/js/MapSwap.js' %}"></script>>
+    <script src="{%static 'FlyingCircus/js/autocomplete.js' %}"></script>>
+    <script src="{%static 'FlyingCircus/js/victor.js' %}"></script>
+
+  <script src="{%static 'FlyingCircus/js/MapSwap.js' %}"></script>
+   <script src="{%static 'FlyingCircus/js/Ministry_of_Silly_Walks_0.js' %}" id="MapJSFile" ></script>>
+  <script src="{%static 'FlyingCircus/js/DisplayRoute.js' %}"></script>
+    <script src="{%static 'FlyingCircus/js/MapMovement.js' %}"></script>
+      <script src="{%static 'FlyingCircus/js/MoveTo.js' %}"></script>
