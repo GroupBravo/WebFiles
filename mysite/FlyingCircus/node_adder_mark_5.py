@@ -24,7 +24,7 @@ class node_add():
         self.mode="nodes"
         self.lines=[]
         self.start=(0,0)
-        self.scleing_factor=0.5
+        self.scaling_factor=0.5
 
 
         pygame.init()
@@ -131,13 +131,13 @@ class node_add():
                     #tape
                     #print("preper  y and x",y,x)
 
-                    #print("scaling factor",self.scleing_factor)
+                    #print("scaling factor",self.scaling_factor)
                     #print("pre y and x",y,x)
                     #print("off set",off_set)
                     y=y-off_set[0]
                     x=x-off_set[1]
-                    y=y/self.scleing_factor
-                    x=x/self.scleing_factor
+                    y=y/self.scaling_factor
+                    x=x/self.scaling_factor
                     #print ("line start",y1,x1)
                     #print("line end ",y,x)
                     #print (" ")
@@ -265,16 +265,16 @@ class node_add():
                                 self.floor=0
                             self.background_image=pygame.image.load(toload).convert()
                             if toload=="Parrot_Shop.png":
-                                self.scleing_factor=0.5
+                                self.scaling_factor=0.5
                             if toload=="Outside.png":
-                                self.scleing_factor=1
+                                self.scaling_factor=1
                             if toload=="Camelot.png":
-                                self.scleing_factor=0.5
+                                self.scaling_factor=0.5
                             if toload=="Ministry_of_Silly_Walks.bmp":
-                                self.scleing_factor=0.5
+                                self.scaling_factor=0.5
                             if toload=="Camelot-1.png":
-                                self.scleing_factor=0.5
-                            print("sacaling factoer is ",self.scleing_factor)
+                                self.scaling_factor=0.5
+                            print("sacaling factoer is ",self.scaling_factor)
                 self.add_teaxt(q,(800,temp))
                 temp=temp+100
 
@@ -362,7 +362,7 @@ class node_add():
             temp2=""
 
             for w in save_to_data[q]:
-                temp2=temp2+str(self.maths(q,w,self.floor)*self.scleing_factor)+"-"
+                temp2=temp2+str(self.maths(q,w,self.floor)*self.scaling_factor)+"-"
                 temp=temp+str(w)+"-"
 
             Distances=temp2
@@ -375,7 +375,7 @@ class node_add():
                 temp_mark=temp_mark+1
                 #print("qwe",qwe)
 
-                qwe2=((qwe*self.scleing_factor)+off_set[temp_mark])
+                qwe2=((qwe*self.scaling_factor)+off_set[temp_mark])
                 coordintsIn=coordintsIn+str(qwe)
                 Coordinate=Coordinate+str(qwe2)
                 if run_one ==True:
@@ -400,7 +400,7 @@ class node_add():
                     temp_mark=temp_mark+1
                     if temp_mark>1:
                         temp_mark=0
-                    rt=off_set[temp_mark]+(rt*self.scleing_factor)
+                    rt=off_set[temp_mark]+(rt*self.scaling_factor)
 
                     temp4=temp4+str(rt)
                     if run_one2==True:
@@ -452,26 +452,7 @@ class node_add():
         db.commit()
 
 
-
-
         db.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -479,6 +460,6 @@ pygame.display.quit()
 
 
 
-wer=node_add(("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png"))
+node_add_instance=node_add(("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png"))
 
-wer.main_loop()
+node_add_instance.main_loop()
