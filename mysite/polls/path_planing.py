@@ -68,7 +68,7 @@ class a_star():
             print("")
             print("looking for data functions")
 
-        contions=""
+        connections=""
 
         for q in self.map_data:
 
@@ -78,22 +78,22 @@ class a_star():
                 if self.debug==True:
                     print(data," data in ")
 
-                contions=q[4]
+                connections=q[4]
                 weights=q[5]
 
                 break
 
 
         point_to_explore=[]
-        contions=contions.split(";")
+        connections=connections.split(";")
         weights=weights.split("-")
 
         count=-1
 
-        for q in contions :
+        for q in connections :
 
             count=count+1
-            point_to_explore.append((contions[count],float(weights[count])))
+            point_to_explore.append((connections[count],float(weights[count])))
         #A set of print statements use for debugging
         if self.debug==True:
             print("data entery out")
@@ -128,7 +128,7 @@ class a_star():
         if z1==z2:
             #A set of print statements use for debugging
             if self.debug==True:
-                print("same floor simple math ")
+                print("same floor  use simple math ")
 
             return(c)
 
@@ -137,18 +137,18 @@ class a_star():
             c2=c2**0.5
                 #A set of print statements use for debugging
             if self.debug==True:
-                print("not on same floor hard math")
+                print("not on same floor use hard math")
             return(c2)
 
 
 
 #This function is in charge of adding data to the array open list the open list array must be kept in an ordered value. To accomplish this the function will take a given value and place it in the correct position in the array
-    def add_to_open_lsit(self,new_vaule):
+    def add_to_open_lsit(self,new_value):
 
         index=-1
 
-        new_node_cost=self.node_data[new_vaule][0]
-        self.openlist.append(new_vaule)
+        new_node_cost=self.node_data[new_value][0]
+        self.openlist.append(new_value)
 
         for open_list_vaules in self.openlist:
 
@@ -157,8 +157,8 @@ class a_star():
             old_node_cost=self.node_data[open_list_vaules][0]
 
             if new_node_cost<old_node_cost:
-                self.openlist.remove(new_vaule)
-                self.openlist.insert(index,new_vaule)
+                self.openlist.remove(new_value)
+                self.openlist.insert(index,new_value)
 
                 break
 
@@ -167,7 +167,7 @@ class a_star():
 
         current_node=end_node
         path=[]
-        loacle_coudents=[]
+        local_coordinates=[]
 
         path.append(self.end_point)
 
@@ -175,18 +175,19 @@ class a_star():
 
             if q[0]==self.end_point:
 
-                loacle_coudents.append(q[1])
+                local_coordinates.append(q[1])
 
                 break
 
         while current_node!=self.start_point:
 
-            #tape
+            #A point in code that needs re-implemented in the future
+
             for q in self.map_data:
 
                 if q[0]==current_node:
 
-                    loacle_coudents.append(q[1])
+                    local_coordinates.append(q[1])
 
                     break
 
@@ -198,7 +199,7 @@ class a_star():
 
             if q[0]==self.start_point:
 
-                loacle_coudents.append(q[1])
+                local_coordinates.append(q[1])
 
                 break
 
@@ -212,16 +213,16 @@ class a_star():
                 print(q)
             print("")
 
-        return((path,loacle_coudents))
+        return((path,local_coordinates))
 
 
 #This function is run to make sure that if there is a more efficient route going through a different note than the initial load it was assigned. If this is found to be the case the node will be assigned the more efficient parent
-    def parent_cheek(self,current_node_data):
+    def parental_check(self,current_node_data):
 
         #A set of print statements use for debugging
         if self.debug==True:
             print("")
-            print("current node in parent_cheek")
+            print("current node in parental_check")
             print(current_node_data)
             print("")
 
@@ -235,10 +236,9 @@ class a_star():
             if self.debug==True:
                 print ("adding new vaule",current_node,self.current_postion)
 
-            hold1=self.node_data[current_node][0]
-            hold2=self.node_data[current_node][1]
-            hold3=self.node_data[current_node][2]
-            hold4=self.node_data[current_node][3]
+
+
+            hold=self.node_data[current_node][3]
 
             del self.node_data[current_node]
 
@@ -247,7 +247,7 @@ class a_star():
 
             #Format of the dictionary reminder
             #tottal_cost,travel_Cost,parent,conetions
-            self.node_data[current_node]=total_G,travel_cost,self.current_postion,hold4
+            self.node_data[current_node]=total_G,travel_cost,self.current_postion,hold
             self.openlist.remove(current_node)
             self.add_to_open_lsit(current_node)
 
@@ -271,14 +271,14 @@ class a_star():
                 if point_to_look_at_plus_cost[0] in self.closedlsit:
                     #A set of print statements use for debugging
                     if self.debug==True:
-                        print("in clsoed li")
+                        print("in  Closed list")
                     continue
 
                 if point_to_look_at_plus_cost[0] in self.openlist:
-                    self.parent_cheek(point_to_look_at_plus_cost)
+                    self.parental_check(point_to_look_at_plus_cost)
                     continue
 
-                #tape need better fix
+                #A point in code that needs re-implemented in the future
                 temp=point_to_look_at_plus_cost[0]
                 temp=temp.split("-")
 
