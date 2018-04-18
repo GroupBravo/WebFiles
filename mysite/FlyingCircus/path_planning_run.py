@@ -12,10 +12,10 @@
 #The relevant modules that need to be imported into this module using the form specified by the  Django framework
 
 #This module will be given a tablename and will return all the data in that table
-from polls import database_table_read
+from FlyingCircus import database_table_read
 
 #This module will perform a pathfinding algorithm between two points using the data given to it
-from polls import path_planing
+from FlyingCircus import path_planing
 
 
 
