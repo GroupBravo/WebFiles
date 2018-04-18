@@ -1,6 +1,7 @@
 import pygame
 import sqlite3
 
+name_of_maps=("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png")
 
 
 class node_add():
@@ -264,15 +265,10 @@ class node_add():
                                 self.rest(toload)
                                 self.floor=0
                             self.background_image=pygame.image.load(toload).convert()
-                            if toload=="Parrot_Shop.png":
-                                self.scaling_factor=0.5
+
                             if toload=="Outside.png":
                                 self.scaling_factor=1
-                            if toload=="Camelot.png":
-                                self.scaling_factor=0.5
-                            if toload=="Ministry_of_Silly_Walks.bmp":
-                                self.scaling_factor=0.5
-                            if toload=="Camelot-1.png":
+                            else:    
                                 self.scaling_factor=0.5
                             print("sacaling factoer is ",self.scaling_factor)
                 self.add_teaxt(q,(800,temp))
@@ -461,24 +457,8 @@ class node_add():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 pygame.display.quit()
 
-
-
-wer=node_add(("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png"))
+wer=node_add(name_of_maps)
 
 wer.main_loop()
