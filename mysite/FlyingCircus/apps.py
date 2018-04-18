@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class FlyingCircusConfig(AppConfig):
-    name = 'FlyingCircus'
+class PollsConfig(AppConfig):
+    name = 'polls'

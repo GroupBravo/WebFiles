@@ -8,7 +8,7 @@ from django.views import generic
 from django.http import JsonResponse
 import sqlite3
 class IndexView(generic.ListView):
-    template_name = 'FlyingCircus/index.html'
+    template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
@@ -18,19 +18,19 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Question
-    template_name = 'FlyingCircus/detail.html'
+    template_name = 'polls/detail.html'
 
 
 class ResultsView(generic.DetailView):
     model = Question
-    template_name = 'FlyingCircus/results.html'
+    template_name = 'polls/results.html'
 
 
 
 def vote(request,question_id):
     question=get_object_or_404(Question,pk=question_id)
 
-    return HttpResponseRedirect(reverse('FlyingCircus:results', args=1))
+    return HttpResponseRedirect(reverse('polls:results', args=1))
 
 
 
@@ -38,7 +38,7 @@ def vote(request,question_id):
 
 def results(request, question_id):
     question=get_object_or_404(Question,pk=question_id)
-    return render(request,'FlyingCircus/results.html',{'question':question})
+    return render(request,'polls/results.html',{'question':question})
 
 
 def ConvertCoord(Label):
@@ -99,7 +99,7 @@ def getPath(request):
 
     startEnglish=str(request.GET['Start'])
     endEnglish=str(request.GET['End'])
-    from FlyingCircus import path_planning_run
+    from polls import path_planning_run
     startLabel=GetLabel(startEnglish)
     endLabel=GetLabel(endEnglish)
     print (startLabel,endLabel)

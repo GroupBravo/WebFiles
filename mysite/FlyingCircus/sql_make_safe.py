@@ -5,7 +5,13 @@
 
 
 
+#This function is used to secure the SQL database it works by taking a string and comparing the ASCII value of each letter in the string against preset values returns true if the ASCII value falls within the predefined ranges and false otherwise.
 
+# Values that are currently allowed in are:
+# a-z
+# A-Z
+# 1-9
+# -
 def input_string(data):
 
     for q in data:

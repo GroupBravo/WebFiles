@@ -5,7 +5,7 @@
 
 # This module is used for accessing the database.
 #It will take the name of a given table that exists in the database and return all the data that is in that table
-from FlyingCircus import sql_make_safe
+from polls import sql_make_safe
 class load_data():
     #Upon initialisation it will create a connection to the database
     def __init__(self):
@@ -24,4 +24,4 @@ class load_data():
             return(user1)
         else:
             print("the data is not safe", table)
-            return("killlll")
+            return("stop")
