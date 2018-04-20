@@ -1,12 +1,21 @@
+
+
+#This is a tool that provides a graphical interface for creating data to be added to a database. It is designed to populate the vast majority of the database for you by performing such things as.
+#Calculating the distance between two points
+#Creating local coordinates for a point
+#Matching all points of and creating relevant entries in the database
+#Provides a graphical display of the data in the database
 import pygame
 import sqlite3
 
+#A list of directories the application will use to load images from
 name_of_maps=("Parrot_Shop.png","Outside.png","Camelot.png","Ministry_of_Silly_Walks.bmp","Camelot-1.png")
 
 
+#This is the main class that embodies the rest of the code
 class node_add():
 
-
+    #This is some initialising variables such as size of the screen and some other global variables are used throughout the code
     def __init__(self,maps_names):
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
@@ -14,7 +23,7 @@ class node_add():
         self.RED = (255, 0, 0)
 
 
-        #tape
+
         self.floor=0
         self.mouse_is_down=False
         self.mouse_is_up=True
@@ -49,13 +58,14 @@ class node_add():
             first_map=maps_names
             print("only one map")
 
-
+        #Converts the mapped an appropriate format for an application to handle and stores it in a variable for a later displaying
         self.current_map=first_map
         self.add_in_nodes_from_db(first_map)
         self.background_image = pygame.image.load(first_map).convert()
 
         #self.rest(first_map)
 
+    #A function that performs a simple reset of the environment setting things back to the default initialisation state and also calls a function that will save the data on the screen to the database
     def rest(self,first_map):
 
         self.data_prosses()
@@ -75,7 +85,7 @@ class node_add():
 
 
 
-
+   #A function that will access the database and get the relevant data out in order to provide a graphical representation of the data
     def add_in_nodes_from_db(self,map_name):
 
         temp=map_name.split(".")
@@ -147,7 +157,7 @@ class node_add():
 
 
 
-
+    #A function that is used for adding text to the screen
     def add_teaxt(self,teaxt,postion):
 
 
@@ -157,7 +167,7 @@ class node_add():
         self.screen.blit(diceDisplay, (y,x))
 
 
-
+    #A function calculates the distance between two points in three dimensions
     def maths(self,a,b,z):
         print("mathin",a,b,z)
 
@@ -179,14 +189,14 @@ class node_add():
         c2=c2**0.5
         return(c2)
 
-
+    #The main loop that continuously run that displays a graphical content. Needs to run continuously until exiting otherwise windows will think it stopped working
     def main_loop(self):
         while True:
 
 
             #if trun switch modes
             switch=False
-
+            #This is where it receives the users input's and perform certain actions based on the type of input received based on predefined codes
             for event in pygame.event.get():
 
                 if event.type==pygame.QUIT:
@@ -204,11 +214,11 @@ class node_add():
                 if event.type==2:
                     switch=True
 
-
+            # An exit statement for the main loop
             if self.done_main_loop==True:
                 break
 
-
+            #The following code is used to keep track of the current condition of the mouse and is used to toggle between states if necessary
             if switch ==True:
                 if self.mode=="nodes":
                     self.mode="lines"
@@ -241,7 +251,7 @@ class node_add():
 
 
 
-
+            #This bit is where the graphical data is then drawn to the screen
             self.screen.fill(self.WHITE)
             x,y=pygame.mouse.get_pos()
 
@@ -254,9 +264,6 @@ class node_add():
                     if y>temp:
                         if y<temp+50:
                             toload=q
-                            #tape
-
-                            #tape
                             if toload=="Camelot-1.png":
                                 toload="Camelot.png"
                                 self.rest(toload)
@@ -268,7 +275,7 @@ class node_add():
 
                             if toload=="Outside.png":
                                 self.scaling_factor=1
-                            else:    
+                            else:
                                 self.scaling_factor=0.5
                             print("sacaling factoer is ",self.scaling_factor)
                 self.add_teaxt(q,(800,temp))
@@ -302,7 +309,7 @@ class node_add():
             # --- Limit to 60 frames per second
             self.clock.tick(60)
 
-
+    #A function to process the data and join up all relevant points with the corresponding lines
     def data_prosses(self):
         self.pair_sore=[]
         lines_id=-1
@@ -314,6 +321,7 @@ class node_add():
                         #print(lines_id,"is in ",node_points)
                         self.pair_sore.append((lines_id,node_points))
 
+    #The main function that sees data to the database as well as performing some initial processing on the data. The processing that occurs is mainly setting up any potential offset values in order to ensure the local coordinates are correct
     def point_to_point_stuff(self):
         temp=self.current_map
         temp=temp.split(".")
@@ -456,9 +464,12 @@ class node_add():
 
 
 
-
+#A function call to help the module pygame cleanup anything. And make sure any screens are closed
 pygame.display.quit()
 
+
+#An initialisation of the class
 wer=node_add(name_of_maps)
 
+#a running of the class
 wer.main_loop()
